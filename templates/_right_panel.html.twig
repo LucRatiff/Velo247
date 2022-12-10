@@ -1,0 +1,43 @@
+{# informations générales sur le forum :
+    - nombre de membres
+    - nombre de posts
+    - nombre de messages
+    - pseudo du dernier inscrit
+    - liste des derniers messages :
+        - lien (boîte cliquable)
+        - titre du sujet
+        - catégorie
+        - auteur
+        - date
+        - message tronqué
+#}
+
+<div class="members-infos">
+    {% set stats_array = panel.stats %}
+    <p><strong>Membres:</strong> {{ stats_array.users_nb }}</p>
+    <p><strong>Posts:</strong> {{ stats_array.topics_nb }}</p>
+    <p><strong>Messages:</strong> {{ stats_array.messages_nb }}</p>
+    <p><strong>Dernier inscrit:</strong> {{ stats_array.last_username }}</p>
+</div>
+
+<div class="last-messages">
+    {% for message in panel.lastMessages %}
+        <a href="{{ path('root') }}forum/{{ message.link }}" class="last-message-element">
+            <div class="last-message-title">
+                <strong>{{ message.title }}</strong> dans <strong>{{ message.category }}</strong>
+            </div>
+            <div class="last-message-author-date">
+                <div class="last-message-author">
+                    <strong>{{ message.author }}</strong>
+                </div>
+                <div class="last-message-date">
+                    {{ message.date }}
+                </div>
+            </div>
+            <div class="last-message-content">
+                {{ message.content|length > 50 ? message.content|slice(0,50) ~ '...'
+                : message.content }}
+            </div>
+        </a>
+    {% endfor %}
+</div>

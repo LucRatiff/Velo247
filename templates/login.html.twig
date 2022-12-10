@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter - {% endblock %}
+
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    {% if error %}
+        <div class="error">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+    
+    <form action="{{ path('login') }}" method="post">
+        <label for="username">Pseudo:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}">
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="_password">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button type="submit">Se connecter</button>
+    </form>
+    
+    <div class="sign-up">
+        <a href="{{ path('app_register') }}">Ou inscrivez-vous</a>
+    </div>
+{% endblock %}

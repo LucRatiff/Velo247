@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nouveau Sujet - {% endblock %}
+
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/new-topic.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <h1>{{ category }}&gt;{{ sub_category }}</h1>
+    <h2>Nouveau Sujet</h2>
+    {{ form(form) }}
+{% endblock %}

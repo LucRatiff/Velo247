@@ -1,0 +1,87 @@
+{% set loggedin = is_granted('ROLE_USER') %}
+{% set is_mod = is_granted('ROLE_MOD') %}
+{% set is_admin = is_granted('ROLE_ADMIN') %}
+
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}Velo 24/7</title>
+        <link rel="icon" href="{{ asset('images/icon.png') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ asset('css/general.css') }}">
+        {% block style %}
+            {% if loggedin %}
+                <link rel="stylesheet" href="{{ asset('css/loggedin_features.css') }}">
+            {% else %}
+                <link rel="stylesheet" href="{{ asset('css/authentication.css') }}">
+            {% endif %}
+        {% endblock %}
+        {% block style_addition %}{% endblock %}
+    </head>
+    
+    <body>
+        {% block body %}
+            <header class="top-header">
+                <div class="title-block">
+                    <a href="{{ path('root') }}" id="title">VELO 24/7</a>
+                    <div id="legend">Le vélo partout, tout le temps</div>
+                </div>
+                <div class="user-block">
+                    {% block user %}
+                        {% if loggedin %}
+                            <a href="{{ path('user_profile') }}">Profil</a>
+                            {% if is_admin %}
+                                <a class="admin-home" href="{{ path('admin_home') }}">Admin.</a>
+                            {% endif %}
+                            <div class="notifs-container">
+                                <button class="notifs">
+                                    <img src="{{ asset('images/notifs.png') }}">
+                                </button>
+                                {% if app.user.notifsNb > 0 %}
+                                    <div class="notifs-nb">
+                                        {{ app.user.notifsNb }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <script src="{{ asset('js/notifs.js') }}"></script>
+                        {% else %}
+                            <a href="{{ path('login') }}">Se connecter/S'inscrire</a>
+                            <script src="{{ asset('js/login.js') }}"></script>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </header>
+            
+            <main>
+                <header class="categories-header">
+                    <ul class="categories">
+                        <li>
+                            <a href="{{ path('root') }}">Forum</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('gallery') }}">Galeries photos</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('peloton') }}">Courir en peloton</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('circuits') }}">Circuits</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('repair') }}">Ateliers de réparation</a>
+                        </li>
+                    </ul>
+                </header>
+                
+                <div class="main-content">
+                    {% block main_content %}{% endblock %}
+                </div>
+            </main>
+            <footer>
+                
+            </footer>
+        {% endblock %}
+    </body>
+    {% block scripts %}{% endblock %}
+</html>

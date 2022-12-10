@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/profile-posts.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <a href="{{ path('profile', { 'name': user.name }) }}" class="go-back">
+        Retour
+    </a>
+    <div class="username">{{ user.name }}</div>
+    <div class="title">{{ title }}</div>
+    <div class="posts-list">
+        {% if category == 'topics' %}
+            {% for t in datas %}
+                <a href="{{ path('topic', { 'topic_id': t.id, 'topic_slug': t.slug }) }}" class="post-element">
+                    <div class="upper-part">
+                        <div class="upper-part-main">
+                            {{ t.title }}
+                        </div>
+                        <div class="upper-part-infos">
+                            Dans {{ t.category }}&gt;{{ t.sub_category }} Le {{ t.date }}
+                        </div>
+                    </div>
+                    <div class="content">
+                        {{ t.content }}
+                    </div>
+                </a>
+            {% endfor %}
+        {% elseif category == 'messages' %}
+            {% for m in datas %}
+                <a href="{{ path('topic', { 'topic_id': m.topic_id, 'topic_slug': m.topic_slug }) ~ '#' ~ m.id }}" class="post-element">
+                    <div class="upper-part">
+                        <div class="upper-part-main">
+                            {{ m.topic_title }}
+                        </div>
+                        <div class="upper-part-infos">
+                            Dans {{ m.category }}&gt;{{ m.sub_category }} Le {{ m.date }}
+                        </div>
+                    </div>
+                    <div class="content">
+                        {{ m.content }}
+                    </div>
+                </a>
+            {% endfor %}
+        {% elseif category == 'galleries' %}
+            {% for g in datas %}
+                <a href="{{ path('gallery', { 'gallery_id': g.id, 'gallery_slug': g.slug }) }}" class="post-element">
+                    <div class="upper-part">
+                        <div class="upper-part-main">
+                            {{ g.title }}
+                        </div>
+                        <div class="upper-part-infos">
+                            Le {{ g.date }}
+                        </div>
+                    </div>
+                    <div class="content">
+                        {{ g.description }}
+                    </div>
+                </a>
+            {% endfor %}
+        {% elseif category == 'gallery_messages' %}
+            {% for gm in datas %}
+                <a href="{{ path('gallery', { 'gallery_id': gm.gallery_id, 'gallery_slug': gm.gallery_slug }) ~ '#' ~ gm.id }}" class="post-element">
+                    <div class="upper-part">
+                        <div class="upper-part-main">
+                            {{ gm.gallery_title }}
+                        </div>
+                        <div class="upper-part-infos">
+                            Le {{ gm.date }}
+                        </div>
+                    </div>
+                    <div class="content">
+                        {{ gm.content }}
+                    </div>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profil de {{ user.name }} - {% endblock %}
+
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <h1 class="profile-username">
+        <div class="username">{{ user.name }}</div>
+        {% if own %}
+            <div class="edit-profile">
+                <a href="{{ path('edit_profile', { 'name': user.name }) }}">Modifier</a>
+            </div>
+        {% endif %}
+    </h1>
+    <div class="profile-content">
+        <div class="photo">
+            <div><img src="{{ asset('images/') ~ user.photo }}"></div>
+        </div>
+        <div class="details">
+            <p><span>Inscrit depuis le :</span> {{ user.date }}</p>
+            {% set roles = user.roles %}
+            {% if roles.ROLE_ADMIN is defined %}
+                <p><span><strong class="admin">Administrateur</strong></p>
+            {% elseif roles.ROLE_MOD is defined %}
+                <p><span><strong class="mod">Modérateur</strong></p>
+            {% endif %}
+            <p><span>Messages postés sur le forum :</span> {{ user.messages_nb }}</p>
+            {% if user.city is not null %}
+                <p><span>Localisation :</span> {{ user.city }}, {{ user.country }}</p>
+            {% endif %}
+            {% if user.signature is not null %}
+                <p><span>Signature :</span><br> {{ user.date }}</p>
+            {% endif %}
+            {% if own or roles.ROLE_ADMIN is defined or roles.ROLE_MOD is defined %}
+                <div class="posts">
+                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'topics' }) }}">
+                        Sujets créés
+                    </a>
+                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'messages' }) }}">
+                        Messages postés
+                    </a>
+                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'galleries' }) }}">
+                        Galleries photo créées
+                    </a>
+                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'gallery_messages' }) }}">
+                        Messages postés dans les galleries photo
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html.twig" %}
+
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/forum_home.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <div class="left-content">
+        {% block left_content %}
+            {# par défaut, présente les catégories du forum #}
+            
+            {# categories : tableau associatif :
+                'nom de la catégorie' => [
+                    [ 
+                        'name' => nom de la sous-catégorie
+                        'description'
+                        'topics_nb'
+                        'messages_nb'
+                        'last_message' => [
+                            'username' => auteur du dernier message
+                            'photo'
+                            'title' => titre du dernier message
+                            'date'
+                        ]
+                    ]
+                ]
+            #}
+            {% for category, c_array in categories %}
+                <div class="forum-category">
+                    <div class="category-name-container">
+                        <div class="category-name">
+                            {{ category }}
+                        </div>
+                        {% if is_admin %}
+                            <div class="category-move">
+                                <div></div><div></div><div></div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="category-content">
+                        {% for sub_category in c_array %}
+                            <a href="{{ path('sub_category', { 'sub_category_id': sub_category.id }) }}" class="forum-sub-category">
+                                <div class="sub-category-name-container">
+                                    <div class="sub-category-name">
+                                        {{ sub_category.name }}
+                                    </div>
+                                    <div class="sub-category-description">
+                                        {{ sub_category.description }}
+                                    </div>
+                                </div>
+                                <div class="sub-category-infos">
+                                    <div class="sub-category-topics">
+                                        {{ sub_category.topics_nb }}
+                                    </div>
+                                    <div class="sub-category-messages">
+                                        {{ sub_category.messages_nb }}
+                                    </div>
+                                </div>
+                                <div class="sub-category-last-message">
+                                    <div class="last-message-picture">
+                                        <a href="{{ path('profile', { 'user': sub_category.last_message.username }) }}">
+                                            <img src="{{ asset('images/') ~ sub_category.last_message.photo }}">
+                                        </a>
+                                    </div>
+                                    <div class="last-message-right">
+                                        <div class="last-message-title">
+                                            {{ sub_category.last_message.title }}
+                                        </div>
+                                        <div class="last-message-infos">
+                                            <div class="last-message-username">
+                                                {{ sub_category.last_message.username }}
+                                            </div>
+                                            <div class="last-message-date">
+                                                {{ sub_category.last_message.date }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if is_admin %}
+                                    <div class="sub-category-move">
+                                        <div></div><div></div><div></div>
+                                    </div>
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_admin %}
+                <script src="{{ asset('js/move-category.js') }}"></script>
+            {% endif %}
+        {% endblock %}
+    </div>
+
+    {% block sidebar %}
+        <aside>
+            {{ include('_right_panel.html.twig') }}
+        </aside>
+    {% endblock %}
+{% endblock %}
+
+
