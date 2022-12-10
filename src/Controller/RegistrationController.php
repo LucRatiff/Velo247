@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -42,8 +41,10 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user->beforeFirstSave());
             $entityManager->flush();
-
-            return $this->redirectToRoute('user_profile');
+            
+            //TODO mettre un message flash
+            
+            return $this->redirectToRoute('root');
         }
 
         return $this->render('register.html.twig', [

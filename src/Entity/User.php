@@ -86,6 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->messages_nb = 0;
         $this->date = (new \DateTime('now'))->getTimestamp();
         $this->photo = 'default-pp.png';
+        $this->notifsNb = 0;
         
         return $this;
     }

@@ -27,7 +27,7 @@
             {% elseif roles.ROLE_MOD is defined %}
                 <p><span><strong class="mod">Modérateur</strong></p>
             {% endif %}
-            <p><span>Messages postés sur le forum :</span> {{ user.messages_nb }}</p>
+            <p><span>Messages postés sur le forum :</span> {{ user.messagesNb }}</p>
             {% if user.city is not null %}
                 <p><span>Localisation :</span> {{ user.city }}, {{ user.country }}</p>
             {% endif %}
@@ -45,7 +45,7 @@
                     <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'galleries' }) }}">
                         Galleries photo créées
                     </a>
-                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'gallery_messages' }) }}">
+                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'galleryMessages' }) }}">
                         Messages postés dans les galleries photo
                     </a>
                 </div>
