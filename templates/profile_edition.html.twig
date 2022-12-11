@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1 class="profile-username">{{ user.name }}</h1>
+    <h1 class="profile-username">{{ name }}</h1>
     {% if errors is defined %}
         {% for error in errors %}
             <div class="error">{{ error }}</div>

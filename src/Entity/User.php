@@ -96,9 +96,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @param UserEdition $userEdition
      * @return self|array renvoie sa propre référence en cas de succès, sinon un tableau d'erreurs
      */
-    public function editSafely(UserEdition $userEdition): self|array
+    public function editSafely(UserEdition $userEdition, UserEditionValidation $u): self|array
     {
-        $u = new UserEditionValidation();
         $name = $userEdition->getName();
         $email = $userEdition->getEmail();
         $password = $userEdition->getPassword();

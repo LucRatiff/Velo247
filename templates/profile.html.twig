@@ -20,7 +20,7 @@
             <div><img src="{{ asset('images/') ~ user.photo }}"></div>
         </div>
         <div class="details">
-            <p><span>Inscrit depuis le :</span> {{ user.date }}</p>
+            <p><span>Inscrit depuis le :</span> {{ user.date|date("d/m/Y") }}</p>
             {% set roles = user.roles %}
             {% if roles.ROLE_ADMIN is defined %}
                 <p><span><strong class="admin">Administrateur</strong></p>
@@ -32,7 +32,7 @@
                 <p><span>Localisation :</span> {{ user.city }}, {{ user.country }}</p>
             {% endif %}
             {% if user.signature is not null %}
-                <p><span>Signature :</span><br> {{ user.date }}</p>
+                <p><span>Signature :</span><br> {{ user.signature }}</p>
             {% endif %}
             {% if own or roles.ROLE_ADMIN is defined or roles.ROLE_MOD is defined %}
                 <div class="posts">

@@ -13,6 +13,8 @@ security:
     firewalls:
         secured_area:
             form_login:
+                login_path: login
+                check_path: login
                 enable_csrf: true
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -24,6 +26,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
+                enable_csrf: true
             logout:
                 path: logout
 
@@ -40,6 +43,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: '^/admin', roles: ROLE_ADMIN }
         - { path: '^/forum/new', roles: ROLE_USER }
+        - { path: '^/profile/edit', roles: ROLE_USER }
 
 when@test:
     security:

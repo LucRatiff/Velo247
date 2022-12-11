@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\Type\UserEditionType;
 use App\Service\Constants;
 use App\Service\UserEdition;
+use App\Service\UserEditionValidation;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,42 +49,49 @@ class UserProfileController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         
-        return $this->redirectToRoute('profile', [ $user->getName() ]);
+        return $this->redirectToRoute('user_profile', ['name' => $user->getName()]);
     }
     
-    #[Route('/profile/{name}/edit', name: 'edit_profile')]
-    public function editProfile(Request $request, ManagerRegistry $registry, string $name): Response
+    #[Route('/profile/edit/{name}', name: 'edit_profile')]
+    public function editProfile(Request $request, ManagerRegistry $registry,
+            UserEditionValidation $u, string $name): Response
     {
+        return $this->render('comming_soon.html.twig');
+        //TODO régler le problème de déconnexion
         /** @var User $user */
-        $user = $this->getUser();
-        
-        if ($name != $user->getName()) {
-            return $this->redirectToRoute('user_profile', [ $name ]);
-        }
-        
-        $form = $this->createForm(UserEditionType::class, new UserEdition());
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $result = $user->editSafely($form->getData());
-            
-            if (gettype($result == "string")) {
-                return $this->renderForm('profile_edition.html.twig', [
-                    'errors' => $result,
-                    'form' => $form,
-                ]);
-            }
-            
-            $manager = $registry->getManager();
-            $manager->persist($user);
-            $manager->flush();
-            
-            return $this->redirectToRoute('user_profile', ['name' => $user->getName()]);
-        }
-        
-        return $this->renderForm('profile_edition.html.twig', [
-            'form' => $form,
-        ]);
+//        $user = $this->getUser();
+//        
+//        if ($name != $user->getName()) {
+//            return $this->redirectToRoute('user_profile', [ $name ]);
+//        }
+//        
+//        $userEdition = new UserEdition();
+//        $form = $this->createForm(UserEditionType::class, $userEdition);
+//        $form->handleRequest($request);
+//        
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $userEdition = $form->getData();
+//            $result = $user->editSafely($userEdition, $u);
+//            
+//            if (gettype($result == "string")) {
+//                return $this->renderForm('profile_edition.html.twig', [
+//                    'name' => $user->getName(),
+//                    'errors' => $result,
+//                    'form' => $form,
+//                ]);
+//            }
+//            
+//            $manager = $registry->getManager();
+//            $manager->persist($user); //TODO
+//            $manager->flush();
+//            
+//            return $this->redirectToRoute('user_profile', ['name' => $user->getName()]);
+//        }
+//        
+//        return $this->renderForm('profile_edition.html.twig', [
+//            'name' => $user->getName(),
+//            'form' => $form,
+//        ]);
     }
     
     /**

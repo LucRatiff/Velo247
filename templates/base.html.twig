@@ -30,7 +30,7 @@
                 <div class="user-block">
                     {% block user %}
                         {% if loggedin %}
-                            <a href="{{ path('user_profile') }}">Profil</a>
+                            <a href="{{ path('own_profile') }}">Profil</a>
                             {% if is_admin %}
                                 <a class="admin-home" href="{{ path('admin_home') }}">Admin.</a>
                             {% endif %}
