@@ -94,9 +94,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * 
      * @param UserEdition $userEdition
-     * @return self|array renvoie sa propre référence en cas de succès, sinon un tableau d'erreurs
+     * @return ?string renvoie une erreur s'il y en a une
      */
-    public function editSafely(UserEdition $userEdition, UserEditionValidation $u): self|array
+    public function editSafely(UserEdition $userEdition, UserEditionValidation $u): ?string
     {
         $name = $userEdition->getName();
         $email = $userEdition->getEmail();
@@ -105,42 +105,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $country = $userEdition->getCountry();
         $signature = $userEdition->getSignature();
         $photo = $userEdition->getPhoto();
-        $errors = array();
+        $error = null;
         
         if ($name != null) {
             if ($u->fieldIsValid('name', $name)) {
                 $u->reserveName($name, $this->name);
                 $this->name = $name;
             } else {
-                $errors[] = 'Le pseudo '.$name.'n\'est pas disponible';
+                $error = 'Le pseudo '.$name.'n\'est pas disponible';
             }
-        }
-        if ($email != null) {
+        } else if ($email != null) {
             if ($u->fieldIsValid('email', $email)) {
                 $this->email = $email;
             } else {
-                $errors[] = 'L\'adresse mail '.$email.' n\'a pas pu être vérifiée';
+                $error = 'L\'adresse mail '.$email.' n\'a pas pu être vérifiée';
             }
-        }
-        if ($password != null) {
+        } else if ($password != null) {
             $this->password = $u->hashPassword($this, $password);
-        }
-        if ($city != null || $country != null) {
+        } else if ($city != null || $country != null) {
             if ($city != null && $country != null) {
                 $this->city = $city;
                 $this->country = $country;
             } else {
-                $errors[] = 'Si vous définissez une localisation, vous devez préciser la ville et le pays';
+                $error = 'Si vous définissez une localisation, vous devez préciser la ville et le pays';
             }
-        }
-        if ($signature != null) {
+        } else if ($signature != null) {
             $this->signature = $signature;
-        }
-        if ($photo != null) {
+        } else if ($photo != null) {
             //TODO
         }
         
-        return count($errors) > 0 ? $errors : $this;
+        return $error;
     }
 
     public function getId(): ?int

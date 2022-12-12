@@ -56,42 +56,40 @@ class UserProfileController extends AbstractController
     public function editProfile(Request $request, ManagerRegistry $registry,
             UserEditionValidation $u, string $name): Response
     {
-        return $this->render('comming_soon.html.twig');
-        //TODO régler le problème de déconnexion
         /** @var User $user */
-//        $user = $this->getUser();
-//        
-//        if ($name != $user->getName()) {
-//            return $this->redirectToRoute('user_profile', [ $name ]);
-//        }
-//        
-//        $userEdition = new UserEdition();
-//        $form = $this->createForm(UserEditionType::class, $userEdition);
-//        $form->handleRequest($request);
-//        
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $userEdition = $form->getData();
-//            $result = $user->editSafely($userEdition, $u);
-//            
-//            if (gettype($result == "string")) {
-//                return $this->renderForm('profile_edition.html.twig', [
-//                    'name' => $user->getName(),
-//                    'errors' => $result,
-//                    'form' => $form,
-//                ]);
-//            }
-//            
-//            $manager = $registry->getManager();
-//            $manager->persist($user); //TODO
-//            $manager->flush();
-//            
-//            return $this->redirectToRoute('user_profile', ['name' => $user->getName()]);
-//        }
-//        
-//        return $this->renderForm('profile_edition.html.twig', [
-//            'name' => $user->getName(),
-//            'form' => $form,
-//        ]);
+        $user = $this->getUser();
+        
+        if ($name != $user->getName()) {
+            return $this->redirectToRoute('user_profile', ['name' => $name]);
+        }
+        
+        $userEdition = new UserEdition();
+        $form = $this->createForm(UserEditionType::class, $userEdition);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userEdition = $form->getData();
+            $result = $user->editSafely($userEdition, $u);
+            
+            if ($result != null) {
+                return $this->renderForm('profile_edition.html.twig', [
+                    'name' => $user->getName(),
+                    'error' => $result,
+                    'form' => $form,
+                ]);
+            }
+            
+            $manager = $registry->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            
+            return $this->redirectToRoute('user_profile', ['name' => $user->getName()]);
+        }
+        
+        return $this->renderForm('profile_edition.html.twig', [
+            'name' => $user->getName(),
+            'form' => $form,
+        ]);
     }
     
     /**
