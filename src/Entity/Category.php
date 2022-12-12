@@ -31,6 +31,13 @@ class Category
     {
         $this->subCategories = new ArrayCollection();
     }
+    
+    public function hydrate(string $name, int $position, ?bool $moderation_only): self
+    {
+        $this->name = $name;
+        $this->position = $position;
+        $this->moderation_only = $moderation_only ?? false;
+    }
 
     public function getId(): ?int
     {

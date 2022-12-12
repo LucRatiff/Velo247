@@ -44,6 +44,14 @@ class SubCategory
     {
         $this->topics = new ArrayCollection();
     }
+    
+    public function hydrate(string $name, Category $category, int $position, ?string $description): self
+    {
+        $this->name = $name;
+        $this->category = $category;
+        $this->position = $position;
+        $this->description = $description;
+    }
 
     public function getId(): ?int
     {

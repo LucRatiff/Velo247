@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/admin-tools.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <h1>Page d'administration</h1>
+    {% if success is not null %}
+        <div class="success">{{ success }}</div>
+    {% endif %}
+    {% if error is not null %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}
