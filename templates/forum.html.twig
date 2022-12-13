@@ -45,7 +45,9 @@
                                         {{ sub_category.name }}
                                     </div>
                                     <div class="sub-category-description">
-                                        {{ sub_category.description }}
+                                        {% if sub_category.description is not null %}
+                                            {{ sub_category.description }}
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="sub-category-infos">

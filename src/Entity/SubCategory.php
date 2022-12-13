@@ -27,7 +27,7 @@ class SubCategory
     #[ORM\Column]
     private ?int $messages_nb = null;
 
-    #[ORM\OneToMany(mappedBy: 'sub_category_id', targetEntity: Topic::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'sub_category', targetEntity: Topic::class, orphanRemoval: true)]
     private Collection $topics;
 
     #[ORM\ManyToOne(inversedBy: 'subCategories')]

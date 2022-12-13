@@ -38,64 +38,65 @@ class ForumController extends AbstractController
         }
         
         $topics = $subCategory->getTopics();
-        //$topicsArray = $topics->toArray();
+        $topicsArray = $topics->toArray();
         $finalTopics = array();
         $removals = array();
-        
-        foreach ($topics as $i => $t) {
-            if ($t->isPinned()) {
-                $finalTopics[] = $t;
-                $removals[] = $i;
-            }
-        }
-        
-        foreach ($topics as $i => $t) {
-            if (!in_array($i, $removals)) {
-                $finalTopics[] = $t;
-            }
-        }
-        
         $twigArray = array();
         
-        foreach ($finalTopics as $t) {
-            $user = $t->getUser();
-            $lastMessage = $t->getLastMessage();
-            $lastUser = $lastMessage->getUser();
-            $usersViews = $t->getNewMessagesViewsUsers();
-            $newMessages = true;
-            
-            if ($this->isGranted("ROLE_USER")) {
-                /** @var User $user */
-                $user = $this->getUser();
-                $id = $user->getId();
-                
-                foreach ($usersViews as $u) {
-                    if ($id == $u->getId()) {
-                        $newMessages = false;
-                        break;
-                    }
+        if ($topics->count() > 0) {
+            foreach ($topicsArray as $t) {
+                if ($t->isPinned()) {
+                    $finalTopics[] = $t;
+                    $removals[] = $i;
                 }
             }
-            
-            $twigArray[] = [
-                'id' => $t->getId(),
-                'title' => $t->getTitle(),
-                'slug' => $t->getSlug(),
-                'locked' => $t->isLocked(),
-                'pinned' => $t->isPinned(),
-                'author' => $user->getName(),
-                'author_photo' => $user->getPhoto(),
-                'date' => (new DateTime($t->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
-                'new_messages' => $newMessages,
-                'views_nb' => $t->getViewsNb(),
-                'messages_nb' => $t->getMessagesNb(),
-                'last_message' => [
-                    'id' => $lastMessage->getId(),
-                    'author' => $lastUser->getName(),
-                    'photo' => $lastUser->getPhoto(),
-                    'date' => (new DateTime($lastMessage->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES),
-                ]
-            ];
+
+            foreach ($topicsArray as $t) {
+                if (!in_array($i, $removals)) {
+                    $finalTopics[] = $t;
+                }
+            }
+
+            foreach ($finalTopics as $t) {
+                $user = $t->getUser();
+                $lastMessage = $t->getLastMessage();
+                $lastUser = $lastMessage->getUser();
+                $usersViews = $t->getNewMessagesViewsUsers();
+                $newMessages = true;
+
+                if ($this->isGranted("ROLE_USER")) {
+                    /** @var User $user */
+                    $user = $this->getUser();
+                    $id = $user->getId();
+
+                    foreach ($usersViews as $u) {
+                        if ($id == $u->getId()) {
+                            $newMessages = false;
+                            break;
+                        }
+                    }
+                }
+
+                $twigArray[] = [
+                    'id' => $t->getId(),
+                    'title' => $t->getTitle(),
+                    'slug' => $t->getSlug(),
+                    'locked' => $t->isLocked(),
+                    'pinned' => $t->isPinned(),
+                    'author' => $user->getName(),
+                    'author_photo' => $user->getPhoto(),
+                    'date' => (new DateTime($t->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                    'new_messages' => $newMessages,
+                    'views_nb' => $t->getViewsNb(),
+                    'messages_nb' => $t->getMessagesNb(),
+                    'last_message' => [
+                        'id' => $lastMessage->getId(),
+                        'author' => $lastUser->getName(),
+                        'photo' => $lastUser->getPhoto(),
+                        'date' => (new DateTime($lastMessage->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES),
+                    ]
+                ];
+            }
         }
         
         return $this->render('forum_sub_category.html.twig', [
