@@ -47,18 +47,6 @@ class MessageTopic
         
         return $this;
     }
-    
-    /**
-     * seulement pour les nouveaux sujets
-     * @param Topic $topic
-     * @return self
-     */
-    public function afterFirstSave(Topic $topic): self
-    {
-        $this->topic = $topic;
-        
-        return $this;
-    }
 
     public function getId(): ?int
     {

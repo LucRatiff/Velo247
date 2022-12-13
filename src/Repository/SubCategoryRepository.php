@@ -47,8 +47,8 @@ class SubCategoryRepository extends ServiceEntityRepository
     public function findAllByPositionAndCategory(Category $category): array
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.category_id = :category')
-            ->setParameter('category', $category->getId())
+            ->andWhere('s.category = :category')
+            ->setParameter('category', $category)
             ->orderBy('s.position', 'ASC')
             ->getQuery()
             ->getResult()

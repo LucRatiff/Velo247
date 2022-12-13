@@ -78,14 +78,6 @@ class Topic
         
         return $this;
     }
-    
-    public function afterFirstSave(MessageTopic $message): self
-    {
-        $this->addMessage($message);
-        $this->setFirstMessage($message);
-        
-        return $this;
-    }
 
     public function getId(): ?int
     {

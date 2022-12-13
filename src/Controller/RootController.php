@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\SubCategory;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,18 +18,21 @@ class RootController extends AbstractController
         $categories = $registry->getRepository(Category::class)->findAllByPosition();
         
         foreach ($categories as $c) {
-            $subCategories = $registry->getRepository(Category::class)->findAllByPositionAndCategory($c);
+            $subCategories = $registry->getRepository(SubCategory::class)->findAllByPositionAndCategory($c);
             
             foreach ($subCategories as $s) {
                 $lastMessage = $s->getLastMessage();
-                $lastAuthor = $lastMessage->getUser();
+                $lastAuthor = null;
+                if ($lastMessage != null) {
+                    $lastAuthor = $lastMessage->getUser();
+                }
                 $twigArray[$c->getName()][] = [
                     'id' => $s->getId(),
                     'name' => $s->getName(),
                     'description' => $s->getDescription(),
                     'topics_nb' => $s->getTopicsNb(),
                     'messages_nb' => $s->getMessagesNb(),
-                    'last_message' => [
+                    'last_message' => $lastAuthor == null ? null : [
                         'username' => $lastAuthor->getName(),
                         'photo' => $lastAuthor->getPhoto(),
                         'title' => $lastMessage->getTitle(),

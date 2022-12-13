@@ -38,18 +38,18 @@ class ForumController extends AbstractController
         }
         
         $topics = $subCategory->getTopics();
-        $topicsArray = $topics->toArray();
+        //$topicsArray = $topics->toArray();
         $finalTopics = array();
         $removals = array();
         
-        foreach ($topicsArray as $i => $t) {
+        foreach ($topics as $i => $t) {
             if ($t->isPinned()) {
                 $finalTopics[] = $t;
                 $removals[] = $i;
             }
         }
         
-        foreach ($topicsArray as $i => $t) {
+        foreach ($topics as $i => $t) {
             if (!in_array($i, $removals)) {
                 $finalTopics[] = $t;
             }
@@ -135,7 +135,7 @@ class ForumController extends AbstractController
             if (!isset($usersArray[$authorId])) {
                 $roles = $author->getRoles();
                 $role = in_array('ROLE_ADMIN', $roles) ? 'Administrateur'
-                        : (in_array('ROLE_MOD', $roles) ? 'Modérateur' : null);
+                        : ((in_array('ROLE_MOD', $roles) ? 'Modérateur' : null));
                 $usersArray[$authorId] = [
                     'name' => $author->getName(),
                     'photo' => $author->getPhoto(),
@@ -150,8 +150,9 @@ class ForumController extends AbstractController
                 'id' => $m->getId(),
                 'author_id' => $authorId,
                 'content' => $m->getContent(),
-                'date' => $m->getDate(),
-                'last_edited' => $m->getLastEdited()
+                'date' => (new DateTime($m->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                'last_edited' => $m->getLastEdited() == null ? null : (new DateTime($m->getLastEdited()))
+                    ->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE)
             ];
         }
         
@@ -172,16 +173,13 @@ class ForumController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $newMessage = $form->getData();
 
-                $date = (new DateTime('now'))->getTimestamp();
-                $message = (new MessageTopic())->hydrate($date, $user, $content, $topic);
+                $message = (new MessageTopic())->hydrate((new DateTime('now'))->getTimestamp(),
+                        $user, $content, $topic);
+                $topic->addMessage($message);
 
                 $manager = $registry->getManager();
                 $manager->persist($message);
-                $manager->flush();
-                $manager->clear();
-
-                $message = $registry->getRepository(MessageTopic::class)->findOneBy(['date' => $date]);
-                $manager->persist($topic->addMessage($message));
+                $manager->persist($topic);
                 $manager->flush();
 
                 return $this->redirectToRoute('topic', ['topic_id' => $topic_id, 'topic_slug' => $topic_slug]);
@@ -212,25 +210,15 @@ class ForumController extends AbstractController
             $newTopic = $form->getData();
             $title = $newTopic->getTitle();
             $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
-            
             $date = (new DateTime("now"))->getTimestamp();
+            
             $message = (new MessageTopic())->hydrate($date, $user, $newTopic->getMessage());
-            $topic = (new Topic)->hydrate($date, $title, $slug, $subCategory, $user);
+            $topic = (new Topic())->hydrate($date, $title, $slug, $subCategory, $user);
+            $message->setTopic($topic);
             
             $manager = $registry->getManager();
             $manager->persist($message);
-            $manager->flush();
             $manager->persist($topic);
-            $manager->flush();
-            
-            //pour récupérer l'id qui a été attribué en bdd
-            $message = $registry->getRepository(MessageTopic::class)->findOneBy(['date' => $date]);
-            $topic = $registry->getRepository(Topic::class)->findOneBy(['date' => $date]);
-            
-            $manager->clear();
-            $manager->persist($message->afterFirstSave($topic));
-            $manager->flush();
-            $manager->persist($topic->afterFirstSave($message));
             $manager->flush();
             
             return $this->redirectToRoute('topic', ['topic_id' => $topic->getId(), 'topic_slug' => $slug]);

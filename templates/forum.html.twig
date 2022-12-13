@@ -57,24 +57,26 @@
                                     </div>
                                 </div>
                                 <div class="sub-category-last-message">
-                                    <div class="last-message-picture">
-                                        <a href="{{ path('profile', { 'user': sub_category.last_message.username }) }}">
-                                            <img src="{{ asset('images/') ~ sub_category.last_message.photo }}">
-                                        </a>
-                                    </div>
-                                    <div class="last-message-right">
-                                        <div class="last-message-title">
-                                            {{ sub_category.last_message.title }}
+                                    {% if sub_category.last_message is not null %}
+                                        <div class="last-message-picture">
+                                            <a href="{{ path('user_profile', { 'name': sub_category.last_message.username }) }}">
+                                                <img src="{{ asset('images/') ~ sub_category.last_message.photo }}">
+                                            </a>
                                         </div>
-                                        <div class="last-message-infos">
-                                            <div class="last-message-username">
-                                                {{ sub_category.last_message.username }}
+                                        <div class="last-message-right">
+                                            <div class="last-message-title">
+                                                {{ sub_category.last_message.title }}
                                             </div>
-                                            <div class="last-message-date">
-                                                {{ sub_category.last_message.date }}
+                                            <div class="last-message-infos">
+                                                <div class="last-message-username">
+                                                    {{ sub_category.last_message.username }}
+                                                </div>
+                                                <div class="last-message-date">
+                                                    {{ sub_category.last_message.date }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
                                 {% if is_admin %}
                                     <div class="sub-category-move">
@@ -98,5 +100,3 @@
         </aside>
     {% endblock %}
 {% endblock %}
-
-
