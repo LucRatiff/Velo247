@@ -32,7 +32,7 @@ class Topic
     private Collection $messages;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?MessageTopic $last_message = null;
 
     #[ORM\Column]
@@ -55,7 +55,7 @@ class Topic
     private ?int $date = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?MessageTopic $first_message = null;
 
     public function __construct()
@@ -64,7 +64,8 @@ class Topic
         $this->new_messages_views_users = new ArrayCollection();
     }
     
-    public function hydrate(int $date, string $title, string $slug, SubCategory $subCategory, User $user): self
+    public function hydrateFirst(int $date, string $title, string $slug,
+            SubCategory $subCategory, User $user, MessageTopic $message): self
     {
         $this->title = $title;
         $this->slug = $slug;
@@ -75,6 +76,8 @@ class Topic
         $this->pinned = false;
         $this->views_nb = 0;
         $this->date = $date;
+        $this->first_message = $message;
+        $this->last_message = $message;
         
         return $this;
     }

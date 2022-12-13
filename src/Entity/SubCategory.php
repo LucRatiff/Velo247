@@ -31,7 +31,7 @@ class SubCategory
     private Collection $topics;
 
     #[ORM\ManyToOne(inversedBy: 'subCategories')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Category $category = null;
 
     #[ORM\Column]
@@ -99,20 +99,6 @@ class SubCategory
         return $this->messages_nb;
     }
 
-    public function setMessages(int $messages_nb): self
-    {
-        $this->messages_nb = $messages_nb;
-
-        return $this;
-    }
-    
-    public function addMessage(): self
-    {
-        $this->messages_nb++;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Topic>
      */
@@ -140,6 +126,12 @@ class SubCategory
             }
         }
 
+        return $this;
+    }
+    
+    public function incrementTopicsNb(): self
+    {
+        $this->topics_nb++;
         return $this;
     }
 
@@ -175,6 +167,7 @@ class SubCategory
     public function setLastMessage(?MessageTopic $last_message): self
     {
         $this->last_message = $last_message;
+        $this->messages_nb++;
 
         return $this;
     }

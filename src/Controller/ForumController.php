@@ -50,9 +50,10 @@ class ForumController extends AbstractController
                     $removals[] = $i;
                 }
             }
-
+            
+            $i = 0;
             foreach ($topicsArray as $t) {
-                if (!in_array($i, $removals)) {
+                if (!in_array($i++, $removals)) {
                     $finalTopics[] = $t;
                 }
             }
@@ -85,7 +86,7 @@ class ForumController extends AbstractController
                     'pinned' => $t->isPinned(),
                     'author' => $user->getName(),
                     'author_photo' => $user->getPhoto(),
-                    'date' => (new DateTime($t->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                    'date' => (new DateTime())->setTimestamp($t->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
                     'new_messages' => $newMessages,
                     'views_nb' => $t->getViewsNb(),
                     'messages_nb' => $t->getMessagesNb(),
@@ -93,7 +94,7 @@ class ForumController extends AbstractController
                         'id' => $lastMessage->getId(),
                         'author' => $lastUser->getName(),
                         'photo' => $lastUser->getPhoto(),
-                        'date' => (new DateTime($lastMessage->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES),
+                        'date' => (new DateTime())->setTimestamp($lastMessage->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES),
                     ]
                 ];
             }
@@ -121,7 +122,7 @@ class ForumController extends AbstractController
             'title' => $topic->getTitle(),
             'locked' => $topic->isLocked(),
             'pinned' => $topic->isPinned(),
-            'category' => $topic->getCategory()->getName(),
+            'category' => $topic->getSubCategory()->getName(),
             'sub_category' => $topic->getSubCategory()->getName(),
             'sub_category_id' => $topic->getSubCategory()->getId()
         ];
@@ -151,8 +152,8 @@ class ForumController extends AbstractController
                 'id' => $m->getId(),
                 'author_id' => $authorId,
                 'content' => $m->getContent(),
-                'date' => (new DateTime($m->getDate()))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
-                'last_edited' => $m->getLastEdited() == null ? null : (new DateTime($m->getLastEdited()))
+                'date' => (new DateTime())->setTimestamp($m->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                'last_edited' => $m->getLastEdited() == null ? null : (new DateTime())->setTimestamp($m->getLastEdited())
                     ->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE)
             ];
         }
@@ -172,6 +173,8 @@ class ForumController extends AbstractController
             $form = $this->createForm(NewMessageType::class, $newMessage);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                /** @var User $user */
+                $user = $this->getUser();
                 $newMessage = $form->getData();
 
                 $message = (new MessageTopic())->hydrate((new DateTime('now'))->getTimestamp(),
@@ -179,9 +182,12 @@ class ForumController extends AbstractController
                 $topic->addMessage($message);
 
                 $manager = $registry->getManager();
-                $manager->persist($message);
                 $manager->persist($topic);
                 $manager->flush();
+                $manager->persist($message);
+                $manager->flush();
+                
+                $user->incrementMessagesNb();
 
                 return $this->redirectToRoute('topic', ['topic_id' => $topic_id, 'topic_slug' => $topic_slug]);
             }
@@ -214,13 +220,18 @@ class ForumController extends AbstractController
             $date = (new DateTime("now"))->getTimestamp();
             
             $message = (new MessageTopic())->hydrate($date, $user, $newTopic->getMessage());
-            $topic = (new Topic())->hydrate($date, $title, $slug, $subCategory, $user);
+            $topic = (new Topic())->hydrateFirst($date, $title, $slug, $subCategory, $user, $message);
             $message->setTopic($topic);
+            $subCategory->incrementTopicsNb();
+            $subCategory->setLastMessage($message);
             
             $manager = $registry->getManager();
             $manager->persist($message);
             $manager->persist($topic);
+            $manager->persist($subCategory);
             $manager->flush();
+            
+            $user->incrementMessagesNb();
             
             return $this->redirectToRoute('topic', ['topic_id' => $topic->getId(), 'topic_slug' => $slug]);
         }

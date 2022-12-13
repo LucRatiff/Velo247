@@ -453,4 +453,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    public function incrementMessagesNb(): self
+    {
+        $this->messages_nb++;
+        return $this;
+    }
 }

@@ -35,7 +35,7 @@ class RootController extends AbstractController
                     'last_message' => $lastAuthor == null ? null : [
                         'username' => $lastAuthor->getName(),
                         'photo' => $lastAuthor->getPhoto(),
-                        'title' => $lastMessage->getTitle(),
+                        'title' => $lastMessage->getTopic()->getTitle(),
                         'date' => $lastMessage->getDate()
                     ]
                 ];

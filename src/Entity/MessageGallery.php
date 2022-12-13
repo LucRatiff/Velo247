@@ -15,7 +15,7 @@ class MessageGallery
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Gallery $gallery = null;
 
     #[ORM\ManyToOne(inversedBy: 'messageGalleries')]

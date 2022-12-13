@@ -26,8 +26,10 @@
         <span>{{ topic.title }}</span>
     </div>
     <div class="messages">
+        {% set i = 0 %}
         {% for message in messages %}
             {% set author = authors[message.author_id] %}
+            {% set i = i + 1 %}
             <div class="message" id="{{ message.id }}">
                 <div class="user-side">
                     <div class="photo">
@@ -56,6 +58,8 @@
                     <div class="number">
                         <a href="{{ path(app.request.attributes.get('_route'),
                             app.request.attributes.get('_route_params')) ~ '?msg=' ~ message.id }}">
+                            #{{ i }}
+                        </a>
                     </div>
                     <div class="content">
                         {{ message.content }}
@@ -83,8 +87,9 @@
     {% endif %}
 {% endblock %}
 
-{% if is_mod %}
-    {% block scripts %}
+
+{% block scripts %}
+    {% if is_mod %}
         <script src="{{ asset('js/topic-mod-actions.js') }}"></script>
-    {% endblock %}
-{% endif %}
+    {% endif %}
+{% endblock %}

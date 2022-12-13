@@ -24,7 +24,7 @@
     {% for message in panel.lastMessages %}
         <a href="{{ path('root') }}forum/{{ message.link }}" class="last-message-element">
             <div class="last-message-title">
-                <strong>{{ message.title }}</strong> dans <strong>{{ message.category }}</strong>
+                <strong>{{ message.title }}</strong> dans <strong>{{ message.sub_category }}</strong>
             </div>
             <div class="last-message-author-date">
                 <div class="last-message-author">

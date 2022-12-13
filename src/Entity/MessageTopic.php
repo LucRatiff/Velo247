@@ -24,7 +24,7 @@ class MessageTopic
     private ?int $flagged = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -34,7 +34,7 @@ class MessageTopic
     private ?string $reactions = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Topic $topic = null;
     
     public function hydrate(int $date, User $user, string $content, $topic = new Topic()): self
