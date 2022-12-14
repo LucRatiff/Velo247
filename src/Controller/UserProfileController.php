@@ -100,7 +100,7 @@ class UserProfileController extends AbstractController
      * @return Response
      */
     #[Route('/profile/{name}/posts/{category}', name: 'profile_posts')]
-    public function profilePosts(ManagerRegistry $registry, string $name, string $category): Response
+    public function profilePosts(ManagerRegistry $registry, string $name, string $category = null): Response
     {
         $user = $registry->getRepository(User::class)->findOneBy(['name' => $name]);
         
@@ -124,7 +124,7 @@ class UserProfileController extends AbstractController
                         'slug' => $t->getSlug(),
                         'sub_category' => $subCategory->getName(),
                         'category' => $subCategory->getCategory()->getName(),
-                        'date' => (new DateTime($t->getDate))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                        'date' => (new DateTime())->setTimestamp($t->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
                         'content' => $t->getFirstMessage()->getContent()
                     ];
                 }
@@ -137,13 +137,13 @@ class UserProfileController extends AbstractController
                     $topic = $m->getTopic();
                     $subCategory = $topic->getSubCategory();
                     $array[] = [
-                        'topic_title' => $topic->getName(),
+                        'topic_title' => $topic->getTitle(),
                         'topic_id' => $topic->getId(),
                         'topic_slug' => $topic->getSlug(),
                         'sub_category' => $subCategory->getName(),
                         'category' => $subCategory->getCategory()->getName(),
                         'id' => $m->getId(),
-                        'date' => (new DateTime($m->getDate))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                        'date' => (new DateTime())->setTimestamp($m->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
                         'content' => $m->getContent()
                     ];
                 }
@@ -157,7 +157,7 @@ class UserProfileController extends AbstractController
                         'id' => $g->getId(),
                         'title' => $g->getName(),
                         'slug' => $g->getSlug(),
-                        'date' => (new DateTime($g->getDate))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                        'date' => (new DateTime())->setTimestamp($g->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
                         'description' => $t->getDescription()
                     ];
                 }
@@ -173,13 +173,13 @@ class UserProfileController extends AbstractController
                         'gallery_id' => $gallery->getId(),
                         'gallery_slug' => $gallery->getSlug(),
                         'id' => $m->getId(),
-                        'date' => (new DateTime($m->getDate))->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                        'date' => (new DateTime())->setTimestamp($m->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
                         'content' => $m->getContent()
                     ];
                 }
                 break;
             default:
-                throw $this->createNotFoundException();
+                return $this->redirectToRoute('user_profile', ['name' => $user->getName()]);
         }
         
         return $this->render('profile_posts.html.twig', [

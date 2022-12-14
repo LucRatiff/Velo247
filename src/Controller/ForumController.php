@@ -108,7 +108,7 @@ class ForumController extends AbstractController
     }
     
     #[Route('/forum/topic/{topic_id}/{topic_slug}', name: 'topic')]
-    public function topic(ManagerRegistry $registry, int $topic_id,
+    public function topic(Request $request, ManagerRegistry $registry, int $topic_id,
             string $topic_slug): Response
     {
         $topic = $registry->getRepository(Topic::class)->find($topic_id);
@@ -171,6 +171,7 @@ class ForumController extends AbstractController
         if ($canAnswer) {
             $newMessage = new NewMessage();
             $form = $this->createForm(NewMessageType::class, $newMessage);
+            $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var User $user */
@@ -178,16 +179,15 @@ class ForumController extends AbstractController
                 $newMessage = $form->getData();
 
                 $message = (new MessageTopic())->hydrate((new DateTime('now'))->getTimestamp(),
-                        $user, $content, $topic);
+                        $user, $newMessage->getMessage(), $topic);
                 $topic->addMessage($message);
+                $user->incrementMessagesNb();
 
                 $manager = $registry->getManager();
                 $manager->persist($topic);
-                $manager->flush();
                 $manager->persist($message);
+                $manager->persist($user);
                 $manager->flush();
-                
-                $user->incrementMessagesNb();
 
                 return $this->redirectToRoute('topic', ['topic_id' => $topic_id, 'topic_slug' => $topic_slug]);
             }
@@ -224,14 +224,14 @@ class ForumController extends AbstractController
             $message->setTopic($topic);
             $subCategory->incrementTopicsNb();
             $subCategory->setLastMessage($message);
+            $user->incrementMessagesNb();
             
             $manager = $registry->getManager();
             $manager->persist($message);
             $manager->persist($topic);
             $manager->persist($subCategory);
+            $manager->persist($user);
             $manager->flush();
-            
-            $user->incrementMessagesNb();
             
             return $this->redirectToRoute('topic', ['topic_id' => $topic->getId(), 'topic_slug' => $slug]);
         }

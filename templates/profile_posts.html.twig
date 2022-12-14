@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <a href="{{ path('profile', { 'name': user.name }) }}" class="go-back">
+    <a href="{{ path('user_profile', { 'name': user.name }) }}" class="go-back">
         Retour
     </a>
     <div class="username">{{ user.name }}</div>

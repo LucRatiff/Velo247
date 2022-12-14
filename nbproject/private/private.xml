@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/axel/Projets/symfony/forum/src/Form/Type/NewTopicType.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Form/Type/NewMessageType.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Entity/Topic.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Service/NewTopic.php</file>
             <file>file:/home/axel/Projets/symfony/forum/src/Controller/ForumController.php</file>
             <file>file:/home/axel/Projets/symfony/forum/src/Controller/UserProfileController.php</file>
-            <file>file:/home/axel/Projets/symfony/forum/src/Entity/User.php</file>
-            <file>file:/home/axel/Projets/symfony/forum/src/Controller/RootController.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Service/NewMessage.php</file>
         </group>
     </open-files>
 </project-private>

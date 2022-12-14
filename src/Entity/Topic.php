@@ -151,6 +151,7 @@ class Topic
         }
         
         $this->last_message = $message;
+        $this->messages_nb++;
 
         return $this;
     }
@@ -162,6 +163,7 @@ class Topic
             if ($message->getTopic() === $this) {
                 $message->setTopic(null);
             }
+            $this->messages_nb--;
         }
 
         return $this;
