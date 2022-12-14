@@ -11,6 +11,6 @@ class RepairController extends AbstractController
     #[Route('/repair', name: 'repair')]
     public function index(): Response
     {
-        return $this->render('comming_soon.html.twig', []);
+        return $this->render('comming_soon.html.twig', ['section' => 'repair']);
     }
 }

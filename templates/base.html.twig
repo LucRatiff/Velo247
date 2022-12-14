@@ -23,55 +23,60 @@
     <body>
         {% block body %}
             <header class="top-header">
-                <div class="title-block">
-                    <a href="{{ path('root') }}" id="title">VELO 24/7</a>
-                    <div id="legend">Le vélo partout, tout le temps</div>
-                </div>
-                <div class="user-block">
-                    {% block user %}
-                        {% if loggedin %}
-                            <a href="{{ path('own_profile') }}">Profil</a>
-                            {% if is_admin %}
-                                <a class="admin-home" href="{{ path('admin_home') }}">Admin.</a>
-                            {% endif %}
-                            <div class="notifs-container">
-                                <button class="notifs">
-                                    <img src="{{ asset('images/notifs.png') }}">
-                                </button>
-                                {% if app.user.notifsNb > 0 %}
-                                    <div class="notifs-nb">
-                                        {{ app.user.notifsNb }}
+                <div class="top-bar">
+                    <div class="top-bar-infos">
+                        Forum en cours de développement, plus de détails <a href="{{ path('legal') }}">ici</a>
+                    </div>
+                    <div class="user-block">
+                        {% block user %}
+                            {% if loggedin %}
+                                <a href="{{ path('own_profile') }}">Profil</a>
+                                <div class="notifs-container">
+                                    <div class="notifs">
+                                        <img src="{{ asset('images/notifs.png') }}">
                                     </div>
-                                {% endif %}
-                            </div>
-                            <script src="{{ asset('js/notifs.js') }}"></script>
-                        {% else %}
-                            <a href="{{ path('login') }}">Se connecter/S'inscrire</a>
-                            <script src="{{ asset('js/login.js') }}"></script>
-                        {% endif %}
-                    {% endblock %}
+                                    {% if app.user.notifsNb > 0 %}
+                                        <div class="notifs-nb">
+                                            {{ app.user.notifsNb }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <script src="{{ asset('js/notifs.js') }}"></script>
+                            {% else %}
+                                <a href="{{ path('login') }}">Se connecter/S'inscrire</a>
+                                <script src="{{ asset('js/login.js') }}"></script>
+                            {% endif %}
+                        {% endblock %}
+                    </div>
                 </div>
+                
             </header>
             
             <main>
+                <header class="title-header">
+                    <a href="{{ path('root') }}" id="title">VELO 24/7</a>
+                    <div id="legend">Le vélo partout, tout le temps</div>
+                </header>
                 <header class="categories-header">
                     <ul class="categories">
-                        <li>
+                        {% set selected = " id=selected-category" %}
+                        <li{% block forum_selected %}{% endblock %}>
                             <a href="{{ path('root') }}">Forum</a>
                         </li>
-                        <li>
+                        <li{% block gallery_selected %}{% endblock %}>
                             <a href="{{ path('gallery') }}">Galeries photos</a>
                         </li>
-                        <li>
+                        <li{% block peloton_selected %}{% endblock %}>
                             <a href="{{ path('peloton') }}">Courir en peloton</a>
                         </li>
-                        <li>
+                        <li{% block circuit_selected %}{% endblock %}>
                             <a href="{{ path('circuits') }}">Circuits</a>
                         </li>
-                        <li>
+                        <li{% block repair_selected %}{% endblock %}>
                             <a href="{{ path('repair') }}">Ateliers de réparation</a>
                         </li>
                     </ul>
+                    <div class="separator"></div>
                 </header>
                 
                 <div class="main-content">
@@ -79,7 +84,7 @@
                 </div>
             </main>
             <footer>
-                
+                <a href="{{ path('legal') }}">A propos / Mentions légales</a>
             </footer>
         {% endblock %}
     </body>

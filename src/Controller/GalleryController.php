@@ -11,6 +11,6 @@ class GalleryController extends AbstractController
     #[Route('/gallery', name: 'gallery')]
     public function index(): Response
     {
-        return $this->render('comming_soon.html.twig', []);
+        return $this->render('comming_soon.html.twig', ['section' => 'gallery']);
     }
 }

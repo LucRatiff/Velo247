@@ -1,7 +1,23 @@
-{% extends "forum.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block style_addition %}
     <link rel="stylesheet" href="{{ asset('css/comming_soon.css') }}">
+{% endblock %}
+
+{% block gallery_selected %}
+    {% if section == 'gallery' %}{{ selected }}{% endif %}
+{% endblock %}
+
+{% block peloton_selected %}
+    {% if section == 'peloton' %}{{ selected }}{% endif %}
+{% endblock %}
+
+{% block circuits_selected %}
+    {% if section == 'circuits' %}{{ selected }}{% endif %}
+{% endblock %}
+
+{% block repair_selected %}
+    {% if section == 'repair' %}{{ selected }}{% endif %}
 {% endblock %}
 
 {% block left_content %}

@@ -11,6 +11,6 @@ class CircuitController extends AbstractController
     #[Route('/circuit', name: 'circuits')]
     public function index(): Response
     {
-        return $this->render('comming_soon.html.twig', []);
+        return $this->render('comming_soon.html.twig', ['section' => 'circuits']);
     }
 }

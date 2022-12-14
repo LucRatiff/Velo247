@@ -1,8 +1,10 @@
 {% extends "base.html.twig" %}
 
 {% block style_addition %}
-    <link rel="stylesheet" href="{{ asset('css/forum_home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forum-home.css') }}">
 {% endblock %}
+
+{% block forum_selected %}{{ selected }}{% endblock %}
 
 {% block main_content %}
     <div class="left-content">

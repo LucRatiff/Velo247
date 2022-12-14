@@ -44,4 +44,10 @@ class RootController extends AbstractController
         
         return $this->render('forum.html.twig', [ 'categories' => $twigArray ]);
     }
+    
+    #[Route('/mentions', name: 'legal')]
+    public function legalNotice(): Response{
+        
+        return $this->render('legal_notice.html.twig', []);
+    }
 }
