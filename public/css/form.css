@@ -1,0 +1,32 @@
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--main-blue);
+    font-weight: bold;
+}
+
+input {
+    display: block;
+    border: 1px solid var(--main-blue);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    line-height: 20px;
+}
+
+button[type="submit"] {
+    border: 2px solid var(--main-blue-hover);
+    border-radius: 4px;
+    padding: 8px 10px;
+    background: var(--main-blue);
+    font-family: var(--default-font);
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    border-color: var(--main-blue);
+    background: var(--main-blue-hover);
+}
+

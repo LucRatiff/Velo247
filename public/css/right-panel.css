@@ -1,0 +1,76 @@
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+    border: 2px solid var(--main-blue);
+    border-radius: 6px;
+    padding: 20px;
+    width: 300px;
+    height: auto;
+    background: #fff;
+    box-shadow: 0 0 4px #090909;
+}
+
+aside > *, .last-messages > * {
+    width: 100%;
+}
+
+.members-infos {
+    border-bottom: 2px solid var(--main-blue);
+    padding-bottom: 20px;
+}
+
+.members-infos p {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.members-infos strong {
+    font-weight: bold;
+    color: var(--main-blue);
+}
+
+.last-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+}
+
+.last-messages h6 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-blue);
+}
+
+.last-messages a {
+    border: 1px solid var(--main-blue);
+    border-radius: 4px;
+}
+
+.last-messages .last-message-title {
+    padding: 10px 8px;
+    background: var(--main-blue);
+    color: #fff;
+}
+
+.last-message-author-date {
+    padding: 5px;
+}
+
+.last-message-author, .last-message-date {
+    color: var(--main-blue);
+}
+
+.last-message-date {
+    font-style: italic;
+    font-size: 14px;
+}
+
+.last-message-content {
+    padding: 5px;
+    color: #000;
+}

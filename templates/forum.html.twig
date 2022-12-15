@@ -27,6 +27,11 @@
                     ]
                 ]
             #}
+            <div class="navigation">
+                <a href="">Accueil</a>
+                {% block navigation %}{% endblock %}
+            </div>
+            <h1 class="forum-section">Forum</h1>
             {% for category, c_array in categories %}
                 <div class="forum-category">
                     <div class="category-name-container">

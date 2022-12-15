@@ -14,25 +14,29 @@
 
 <div class="members-infos">
     {% set stats_array = panel.stats %}
-    <p><strong>Membres:</strong> {{ stats_array.users_nb }}</p>
-    <p><strong>Posts:</strong> {{ stats_array.topics_nb }}</p>
-    <p><strong>Messages:</strong> {{ stats_array.messages_nb }}</p>
-    <p><strong>Dernier inscrit:</strong> {{ stats_array.last_username }}</p>
+    <p><strong>Membres:</strong><span>{{ stats_array.users_nb }}</span></p>
+    <p><strong>Posts:</strong><span>{{ stats_array.topics_nb }}</span></p>
+    <p><strong>Messages:</strong><span>{{ stats_array.messages_nb }}</span></p>
+    <p><strong>Dernier inscrit:</strong><span>{{ stats_array.last_username }}</span></p>
 </div>
 
 <div class="last-messages">
+    <h6>Derniers messages</h6>
     {% for message in panel.lastMessages %}
         <a href="{{ path('root') }}forum/{{ message.link }}" class="last-message-element">
             <div class="last-message-title">
-                <strong>{{ message.title }}</strong> dans <strong>{{ message.sub_category }}</strong>
+                <strong>{{ message.title|length > 20 ? message.title|slice(0,20) ~ '...'
+                    : message.title }}</strong> dans 
+                    <strong>{{ message.sub_category|length > 20 ? message.sub_category|slice(0,20) ~ '...'
+                        : message.sub_category }}</strong>
             </div>
             <div class="last-message-author-date">
-                <div class="last-message-author">
-                    <strong>{{ message.author }}</strong>
-                </div>
-                <div class="last-message-date">
-                    {{ message.date }}
-                </div>
+                <span class="last-message-author">
+                    <strong>{{ message.author }}</strong>,
+                </span>
+                <span class="last-message-date">
+                    le {{ message.date }}
+                </span>
             </div>
             <div class="last-message-content">
                 {{ message.content|length > 50 ? message.content|slice(0,50) ~ '...'

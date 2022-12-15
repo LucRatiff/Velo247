@@ -75,7 +75,7 @@ class Panel
                 'title' => $topic->getTitle(),
                 'sub_category' => $subCategory->getName(),
                 'author' => $m->getUser()->getName(),
-                'date' => $m->getDate(),
+                'date' => (new \DateTime())->setTimestamp($m->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
                 'content' => $m->getContent(),
                 'link' => 'topic/'.$topic->getId().'/'
                     .$topic->getSlug().'/?msg='.$m->getId()

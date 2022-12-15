@@ -10,6 +10,9 @@
     --blue-grey-hover: #386180;
     --brown: #956c05;
     --light-brown: #dca320;
+    --purple: #8013c3;
+    --orange: #f3982b;
+    --light-orange: #ffc37a;
     --default-font: 'Times New Roman', 'Liberation Serif', 'Arial', 'serif';
     --beautiful-font: 'Georgia', 'Times New Roman', 'Liberation Serif';
     --sans-serif-font: 'Rubik', 'sans-serif';
@@ -126,13 +129,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 20px 2px 20px;
     border-radius: 6px 6px 0 0;
     background: var(--main-blue-hover);
     border: 2px solid var(--main-blue);
 }
 
 .categories a {
+    padding: 10px 20px 2px 20px;
     color: #fff;
     font-weight: bold;
 }
@@ -161,4 +164,12 @@ footer {
 footer a {
     color: #fff;
     text-decoration: underline;
+}
+
+.error {
+    margin-bottom: 20px;
+    font-family: var(--beautiful-police);
+    color: var(--main-red);
+    font-weight: bold;
+    font-style: italic;
 }

@@ -1,0 +1,16 @@
+@import 'form.css';
+
+.sign-up {
+    margin-top: 20px;
+}
+
+.sign-up a {
+    color: var(--main-blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sign-up a:hover {
+    color: var(--main-blue-hover);
+    text-decoration: underline;
+}
