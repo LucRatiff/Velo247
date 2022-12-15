@@ -46,28 +46,31 @@
                         </div>
                     </div>
                 </div>
-                <div "topic-numbers-side">
-                    <div class="topic-messages">
-                        {{ topic.messages_nb }}
+                <div class="topic-other-side">
+                    <div class="topic-numbers-side">
+                        <div class="topic-messages">
+                            <span>{{ topic.messages_nb }}</span> Messages
+                        </div>
+                        <div class="topic-views">
+                            <span>{{ topic.views_nb }}</span> Vues
+                        </div>
                     </div>
-                    <div class="topic-views">
-                        {{ topic.views_nb }}
-                    </div>
-                </div>
-                <div class="last-message-side">
-                    <div class="last-message-photo">
-                        <a href="{{ path('user_profile', { 'name': topic.last_message.author }) }}">
-                            <img src="{{ asset('images/') ~ topic.last_message.photo }}">
+                    <div class="last-message-side">
+                        <div class="last-message-photo">
+                            <a href="{{ path('user_profile', { 'name': topic.last_message.author }) }}">
+                                <img src="{{ asset('images/') ~ topic.last_message.photo }}">
+                            </a>
+                        </div>
+                        <a href="{{ path('topic', { 'topic_id': topic.id, 'topic_slug': topic.slug })
+                            ~ '#' ~ topic.last_message.id }}" class="last-message-infos">
+                            <div class="last-message-author">
+                                Par <strong>{{ topic.last_message.author }}</strong>
+                            </div>
+                            <div class="last-message-date">
+                                Le {{ topic.last_message.date }}
+                            </div>
                         </a>
                     </div>
-                    <a href="{{ path('topic', { 'topic_id': topic.id, 'topic_slug': topic.slug }) ~ '#' ~ topic.last_message.id }}" class="last-message-infos">
-                        <div class="last-message-author">
-                            {{ topic.last_message.author }}
-                        </div>
-                        <div class="last-message-date">
-                            {{ topic.last_message.date }}
-                        </div>
-                    </a>
                 </div>
             </div>
         {% endfor %}

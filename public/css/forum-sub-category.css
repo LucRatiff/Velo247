@@ -1,3 +1,92 @@
 @import 'forum.css';
 @import 'right-panel.css';
 
+.topics-list {
+    border: 1px solid var(--light-blue-grey);
+    border-radius: 6px;
+    background: #fff;
+}
+
+.topic {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--light-blue-grey);
+    padding: 10px;
+}
+
+.topic:last-child {
+    border-bottom: none;
+}
+
+.topic-title-side {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.topic-title {
+    display: flex;
+    column-gap: 5px;
+}
+
+.topic-title a {
+    font-size: 1.125rem;
+    color: var(--main-blue);
+}
+
+.topic-title a:hover {
+    color: var(--main-blue-hover);
+}
+
+.author-infos {
+    display: flex;
+    align-items: baseline;
+    column-gap: 10px;
+}
+
+.topic-author {
+    color: var(--main-blue);
+}
+
+.topic-author a {
+    color: var(--main-blue);
+    font-weight: bold;
+}
+
+.topic-author a:hover {
+    color: var(--main-blue-hover);
+}
+
+.topic-date {
+    color: var(--blue-grey);
+    font-size: 0.8rem;
+}
+
+.topic-other-side {
+    display: flex;
+    column-gap: 100px;
+}
+
+.topic-numbers-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    column-gap: 10px;
+    color: var(--blue-grey);
+}
+
+.topic-numbers-side span {
+    color: var(--main-blue);
+    font-weight: bold;
+}
+
+.last-message-side {
+    display: flex;
+    column-gap: 50px;
+}
+
+.last-message-photo img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}

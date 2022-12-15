@@ -158,17 +158,17 @@ class ForumController extends AbstractController
             ];
         }
         
-        $canAnswer = ($this->isGranted("ROLE_MOD") || $this->isGranted("ROLE_ADMIN"))
+        $answer = ($this->isGranted("ROLE_MOD") || $this->isGranted("ROLE_ADMIN"))
                 || ($this->isGranted('ROLE_USER') && !$m->isLocked());
         
         $twigArray = [
             'topic' => $topicArray,
             'messages' => $messagesArray,
             'authors' => $usersArray,
-            'can_answer' => $canAnswer
+            'answer' => $answer
         ];
         
-        if ($canAnswer) {
+        if ($answer) {
             $newMessage = new NewMessage();
             $form = $this->createForm(NewMessageType::class, $newMessage);
             $form->handleRequest($request);

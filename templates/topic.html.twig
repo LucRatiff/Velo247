@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "forum.html.twig" %}
 
 {% block title %}{{ topic.title }} - {% endblock %}
 
@@ -6,87 +6,83 @@
     <link rel="stylesheet" href="{{ asset('css/topic.css') }}">
 {% endblock %}
 
-{% block main_content %}
-    <div class="navigation-container">
-        <div class="navigation">
-            <a href="{{ path('root') }}">Forum</a>
-            <span>&gt;</span>
-            <a href="{{ path('sub_category', { 'sub_category_id': topic.sub_category_id }) }}">
-                {{ topic.category }}&gt;{{ topic.sub_category }}
-            </a>
-        </div>
-    </div>
-    <div class="title">
-        {% if topic.locked %}
-            <img src="{{ asset('images/locked.png') }}">
-        {% endif %}
-        {% if topic.pinned %}
-            <img src="{{ asset('images/pinned.png') }}">
-        {% endif %}
-        <span>{{ topic.title }}</span>
-    </div>
-    <div class="messages">
-        {% set i = 0 %}
-        {% for message in messages %}
-            {% set author = authors[message.author_id] %}
-            {% set i = i + 1 %}
-            <div class="message" id="{{ message.id }}">
-                <div class="user-side">
-                    <div class="photo">
-                        <a href="{{ path('user_profile', { 'name': author.name }) }}">
-                            <img src="{{ asset('images/') ~ author.photo }}">
-                        </a>
-                    </div>
-                    <a href="{{ path('user_profile', { 'name': author.name }) }}" class="author">
-                        {{ author.name }}
+{% block navigation %}
+    <span> &gt; </span>
+    <a href="{{ path('sub_category', { 'sub_category_id': topic.sub_category_id }) }}">{{ topic.sub_category }}</a>
+    <span> &gt; {{ topic.title }}</span>
+{% endblock %}
+{% block section_title %}
+    {% if topic.locked %}
+        <img src="{{ asset('images/locked.png') }}">
+    {% endif %}
+    {% if topic.pinned %}
+        <img src="{{ asset('images/pinned.png') }}">
+    {% endif %}
+    <span>{{ topic.title }}</span>
+{% endblock %}
+
+{% block left_content %}
+    {% set i = 0 %}
+    {% for message in messages %}
+        {% set author = authors[message.author_id] %}
+        {% set i = i + 1 %}
+        <div class="message" id="{{ message.id }}">
+            <div class="user-side">
+                <div class="photo">
+                    <a href="{{ path('user_profile', { 'name': author.name }) }}">
+                        <img src="{{ asset('images/') ~ author.photo }}">
                     </a>
-                    {% if author.role is not null %}
-                        <div class="role">
-                            {{ author.role }}
-                        </div>
-                    {% endif %}
-                    <div class="author-messages-nb">
-                        {{ author.messages_nb }}
-                    </div>
-                    {% if author.city is not null %}
-                        <div class="location">
-                            {{ author.city }}, {{ author.country }}
-                        </div>
-                    {% endif %}
                 </div>
-                <div class="message-side">
-                    <div class="number">
-                        <a href="{{ path(app.request.attributes.get('_route'),
-                            app.request.attributes.get('_route_params')) ~ '?msg=' ~ message.id }}">
-                            #{{ i }}
-                        </a>
+                <a href="{{ path('user_profile', { 'name': author.name }) }}" class="author">
+                    {{ author.name }}
+                </a>
+                {% if author.role is not null %}
+                    <div class="role">
+                        {{ author.role }}
                     </div>
-                    <div class="content">
-                        {{ message.content }}
+                {% endif %}
+                <div class="author-messages-nb">
+                    {{ author.messages_nb }}
+                </div>
+                {% if author.city is not null %}
+                    <div class="location">
+                        {{ author.city }}, {{ author.country }}
                     </div>
-                    {% if author.signature is not null %}
-                        <div class="signature">
-                            {{ author.signature }}
-                        </div>
+                {% endif %}
+            </div>
+            <div class="message-side">
+                <div class="number">
+                    <a href="{{ path(app.request.attributes.get('_route'),
+                        app.request.attributes.get('_route_params')) ~ '?msg=' ~ message.id }}">
+                        #{{ i }}
+                    </a>
+                </div>
+                <div class="content">
+                    {{ message.content }}
+                </div>
+                {% if author.signature is not null %}
+                    <div class="signature">
+                        {{ author.signature }}
+                    </div>
+                {% endif %}
+                <div class="message-infos">
+                    <span class="message-date">Le {{ message.date }}</span>
+                    {% if message.last_edited is not null %}
+                        <span class="message-last-edited">, {{ message.last_edited }}</span>
                     {% endif %}
-                    <div class="message-infos">
-                        <span class="message-date">Le {{ message.date }}</span>
-                        {% if message.last_edited is not null %}
-                            <span class="message-last-edited">, {{ message.last_edited }}</span>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-    {% if loggedin and can_answer %}
+        </div>
+    {% endfor %}
+    {% if answer %}
         <div class="answer">
-            <h1>Répondre</h1>
+            <h2>Répondre</h2>
             {{ form(form) }}
         </div>
     {% endif %}
 {% endblock %}
 
+{% block sidebar %}{% endblock %}
 
 {% block scripts %}
     {% if is_mod %}

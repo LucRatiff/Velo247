@@ -1,0 +1,13 @@
+@import 'forum.css';
+
+.message {
+    display: flex;
+    border: 1px solid var(--light-blue-grey);
+    border-radius: 6px;
+    background: #fff;
+}
+
+.user-side {
+    display: flex;
+    flex-direction: column;
+}
