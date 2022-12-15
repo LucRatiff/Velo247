@@ -14,11 +14,11 @@
     margin-bottom: 20px;
     background: #fff;
     font-size: 0.8rem;
-    font-weight: bold;
-    color: var(--blue-grey);
+    color: var(--main-blue);
 }
 
 .navigation a {
+    font-weight: bold;
     color: var(--main-blue);
 }
 

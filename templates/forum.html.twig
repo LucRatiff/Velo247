@@ -11,24 +11,8 @@
         {% block left_content %}
             {# par défaut, présente les catégories du forum #}
             
-            {# categories : tableau associatif :
-                'nom de la catégorie' => [
-                    [ 
-                        'name' => nom de la sous-catégorie
-                        'description'
-                        'topics_nb'
-                        'messages_nb'
-                        'last_message' => [
-                            'username' => auteur du dernier message
-                            'photo'
-                            'title' => titre du dernier message
-                            'date'
-                        ]
-                    ]
-                ]
-            #}
             <div class="navigation">
-                <a href="">Accueil</a>
+                <a href="{{ path('root') }}">Accueil</a>
                 {% block navigation %}{% endblock %}
             </div>
             <h1 class="forum-section">Forum</h1>
@@ -46,23 +30,25 @@
                     </div>
                     <div class="category-content">
                         {% for sub_category in c_array %}
-                            <a href="{{ path('sub_category', { 'sub_category_id': sub_category.id }) }}" class="forum-sub-category">
-                                <div class="sub-category-name-container">
-                                    <div class="sub-category-name">
-                                        {{ sub_category.name }}
-                                    </div>
-                                    <div class="sub-category-description">
-                                        {% if sub_category.description is not null %}
-                                            {{ sub_category.description }}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="sub-category-infos">
-                                    <div class="sub-category-topics">
-                                        {{ sub_category.topics_nb }}
-                                    </div>
-                                    <div class="sub-category-messages">
-                                        {{ sub_category.messages_nb }}
+                            <div class="forum-sub-category">
+                                <div class="forum-sub-category-left">
+                                    <a href="{{ path('sub_category', { 'sub_category_id': sub_category.id }) }}" class="sub-category-name-container">
+                                        <div class="sub-category-name">
+                                            {{ sub_category.name }}
+                                        </div>
+                                        <div class="sub-category-description">
+                                            {% if sub_category.description is not null %}
+                                                {{ sub_category.description }}
+                                            {% endif %}
+                                        </div>
+                                    </a>
+                                    <div class="sub-category-infos">
+                                        <div class="sub-category-topics">
+                                            <span>{{ sub_category.topics_nb }}</span> Sujet{{ sub_category.topics_nb > 1 ? 's' : '' }}
+                                        </div>
+                                        <div class="sub-category-messages">
+                                            <span>{{ sub_category.messages_nb }}</span> Message{{ sub_category.topics_nb > 1 ? 's' : '' }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="sub-category-last-message">
@@ -72,19 +58,22 @@
                                                 <img src="{{ asset('images/') ~ sub_category.last_message.photo }}">
                                             </a>
                                         </div>
-                                        <div class="last-message-right">
+                                        <a href="{{ path('topic', { 'topic_id': sub_category.last_message.topic_id,
+                                                'topic_slug': sub_category.last_message.topic_slug })
+                                                ~ '#' ~ sub_category.last_message.id }}" class="last-message-right">
                                             <div class="last-message-title">
-                                                {{ sub_category.last_message.title }}
+                                                {% set title = sub_category.last_message.title %}
+                                                {{ title|length > 20 ? title|slice(0,20) ~ '...' : title }}
                                             </div>
                                             <div class="last-message-infos">
                                                 <div class="last-message-username">
                                                     {{ sub_category.last_message.username }}
                                                 </div>
-                                                <div class="last-message-date">
-                                                    {{ sub_category.last_message.date }}
+                                                <div class="sub-category-last-message-date">
+                                                    Le {{ sub_category.last_message.date }}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     {% endif %}
                                 </div>
                                 {% if is_admin %}
@@ -92,7 +81,7 @@
                                         <div></div><div></div><div></div>
                                     </div>
                                 {% endif %}
-                            </a>
+                            </div>
                         {% endfor %}
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\SubCategory;
+use App\Service\Constants;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,10 @@ class RootController extends AbstractController
                         'username' => $lastAuthor->getName(),
                         'photo' => $lastAuthor->getPhoto(),
                         'title' => $lastMessage->getTopic()->getTitle(),
-                        'date' => $lastMessage->getDate()
+                        'date' => (new \DateTime())->setTimestamp($lastMessage->getDate())->format(Constants::DATE_FORMAT_SLASHES_MINUTES_SENTENCE),
+                        'id' => $lastMessage->getId(),
+                        'topic_id' => $lastMessage->getTopic()->getId(),
+                        'topic_slug' => $lastMessage->getTopic()->getSlug()
                     ]
                 ];
             }

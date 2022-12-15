@@ -51,10 +51,18 @@ aside > *, .last-messages > * {
     border-radius: 4px;
 }
 
+.last-messages a:hover {
+    border-color: var(--main-blue-hover);
+}
+
 .last-messages .last-message-title {
     padding: 10px 8px;
     background: var(--main-blue);
     color: #fff;
+}
+
+.last-messages a:hover .last-message-title {
+    background: var(--main-blue-hover);
 }
 
 .last-message-author-date {
