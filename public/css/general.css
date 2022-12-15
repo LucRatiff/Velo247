@@ -93,6 +93,13 @@ ul {
     height: 20px;
 }
 
+.main-and-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
 main {
     margin: 0 80px;
 }

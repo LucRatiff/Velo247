@@ -1,12 +1,6 @@
 @import 'forum.css';
 @import 'right-panel.css';
 
-.left-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
 .forum-category {
     display: flex;
     flex-direction: column;

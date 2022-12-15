@@ -72,6 +72,9 @@ class Panel
             $topic = $m->getTopic();
             $subCategory = $topic->getSubCategory();
             $array[] = [
+                'id' => $m->getId(),
+                'topic_id' => $topic->getId(),
+                'topic_slug' => $topic->getSlug(),
                 'title' => $topic->getTitle(),
                 'sub_category' => $subCategory->getName(),
                 'author' => $m->getUser()->getName(),

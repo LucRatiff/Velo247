@@ -52,40 +52,42 @@
                 
             </header>
             
-            <main>
-                <header class="title-header">
-                    <a href="{{ path('root') }}" id="title">VELO 24/7</a>
-                    <div id="legend">Le vélo partout, tout le temps</div>
-                </header>
-                <header class="categories-header">
-                    <ul class="categories">
-                        {% set selected = " id=selected-category" %}
-                        <li{% block forum_selected %}{% endblock %}>
-                            <a href="{{ path('root') }}">Forum</a>
-                        </li>
-                        <li{% block gallery_selected %}{% endblock %}>
-                            <a href="{{ path('gallery') }}">Galeries photos</a>
-                        </li>
-                        <li{% block peloton_selected %}{% endblock %}>
-                            <a href="{{ path('peloton') }}">Courir en peloton</a>
-                        </li>
-                        <li{% block circuits_selected %}{% endblock %}>
-                            <a href="{{ path('circuits') }}">Circuits</a>
-                        </li>
-                        <li{% block repair_selected %}{% endblock %}>
-                            <a href="{{ path('repair') }}">Ateliers de réparation</a>
-                        </li>
-                    </ul>
-                    <div class="separator"></div>
-                </header>
-                
-                <div class="main-content">
-                    {% block main_content %}{% endblock %}
-                </div>
-            </main>
-            <footer>
-                <a href="{{ path('legal') }}">A propos / Mentions légales</a>
-            </footer>
+            <div class="main-and-footer">
+                <main>
+                    <header class="title-header">
+                        <a href="{{ path('root') }}" id="title">VELO 24/7</a>
+                        <div id="legend">Le vélo partout, tout le temps</div>
+                    </header>
+                    <header class="categories-header">
+                        <ul class="categories">
+                            {% set selected = " id=selected-category" %}
+                            <li{% block forum_selected %}{% endblock %}>
+                                <a href="{{ path('root') }}">Forum</a>
+                            </li>
+                            <li{% block gallery_selected %}{% endblock %}>
+                                <a href="{{ path('gallery') }}">Galeries photos</a>
+                            </li>
+                            <li{% block peloton_selected %}{% endblock %}>
+                                <a href="{{ path('peloton') }}">Courir en peloton</a>
+                            </li>
+                            <li{% block circuits_selected %}{% endblock %}>
+                                <a href="{{ path('circuits') }}">Circuits</a>
+                            </li>
+                            <li{% block repair_selected %}{% endblock %}>
+                                <a href="{{ path('repair') }}">Ateliers de réparation</a>
+                            </li>
+                        </ul>
+                        <div class="separator"></div>
+                    </header>
+
+                    <div class="main-content">
+                        {% block main_content %}{% endblock %}
+                    </div>
+                </main>
+                <footer>
+                    <a href="{{ path('legal') }}">A propos / Mentions légales</a>
+                </footer>
+            </div>
         {% endblock %}
     </body>
     {% block scripts %}{% endblock %}

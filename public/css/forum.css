@@ -7,7 +7,15 @@
     background: var(--grey-bg);
 }
 
+.left-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 .navigation {
+    display: flex;
+    column-gap: 10px;
     border: 1px solid var(--light-blue-grey);
     border-radius: 6px;
     padding: 10px 20px;
@@ -26,6 +34,12 @@
     text-decoration: underline;
 }
 
+.section-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
 .forum-section {
     margin: 10px 0 20px 0;
     padding-left: 5px;
@@ -34,3 +48,18 @@
     font-size: 1.5rem;
 }
 
+.new-topic {
+    display: block;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 5px 20px;
+    background: var(--brown);
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 2px #090909;
+}
+
+.new-topic:hover {
+    background: var(--light-brown);
+}

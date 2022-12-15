@@ -23,7 +23,9 @@
 <div class="last-messages">
     <h6>Derniers messages</h6>
     {% for message in panel.lastMessages %}
-        <a href="{{ path('root') }}forum/{{ message.link }}" class="last-message-element">
+        <a href="{{ path('topic',
+            { 'topic_id': message.topic_id, 'topic_slug': message.topic_slug })
+            ~ '#' ~ message.id }}" class="last-message-element">
             <div class="last-message-title">
                 <strong>{{ message.title|length > 20 ? message.title|slice(0,20) ~ '...'
                     : message.title }}</strong> dans 

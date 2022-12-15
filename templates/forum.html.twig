@@ -8,87 +8,89 @@
 
 {% block main_content %}
     <div class="left-content">
-        {% block left_content %}
+        {% block left_content_top %}
             {# par défaut, présente les catégories du forum #}
             
             <div class="navigation">
                 <a href="{{ path('root') }}">Accueil</a>
                 {% block navigation %}{% endblock %}
             </div>
-            <h1 class="forum-section">Forum</h1>
-            {% for category, c_array in categories %}
-                <div class="forum-category">
-                    <div class="category-name-container">
-                        <div class="category-name">
-                            {{ category }}
-                        </div>
-                        {% if is_admin %}
-                            <div class="category-move">
-                                <div></div><div></div><div></div>
+            <div class="section-title-container">
+                <h1 class="forum-section">{% block section_title %}Forum{% endblock %}</h1>
+                {% block new_topic %}{% endblock %}
+            </div>
+            {% block left_content %}
+                {% for category, c_array in categories %}
+                    <div class="forum-category">
+                        <div class="category-name-container">
+                            <div class="category-name">
+                                {{ category }}
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="category-content">
-                        {% for sub_category in c_array %}
-                            <div class="forum-sub-category">
-                                <div class="forum-sub-category-left">
-                                    <a href="{{ path('sub_category', { 'sub_category_id': sub_category.id }) }}" class="sub-category-name-container">
-                                        <div class="sub-category-name">
-                                            {{ sub_category.name }}
-                                        </div>
-                                        <div class="sub-category-description">
-                                            {% if sub_category.description is not null %}
-                                                {{ sub_category.description }}
-                                            {% endif %}
-                                        </div>
-                                    </a>
-                                    <div class="sub-category-infos">
-                                        <div class="sub-category-topics">
-                                            <span>{{ sub_category.topics_nb }}</span> Sujet{{ sub_category.topics_nb > 1 ? 's' : '' }}
-                                        </div>
-                                        <div class="sub-category-messages">
-                                            <span>{{ sub_category.messages_nb }}</span> Message{{ sub_category.topics_nb > 1 ? 's' : '' }}
-                                        </div>
-                                    </div>
+                            {% if is_admin %}
+                                <div class="category-move">
+                                    <div></div><div></div><div></div>
                                 </div>
-                                <div class="sub-category-last-message">
-                                    {% if sub_category.last_message is not null %}
-                                        <div class="last-message-picture">
-                                            <a href="{{ path('user_profile', { 'name': sub_category.last_message.username }) }}">
-                                                <img src="{{ asset('images/') ~ sub_category.last_message.photo }}">
-                                            </a>
-                                        </div>
-                                        <a href="{{ path('topic', { 'topic_id': sub_category.last_message.topic_id,
-                                                'topic_slug': sub_category.last_message.topic_slug })
-                                                ~ '#' ~ sub_category.last_message.id }}" class="last-message-right">
-                                            <div class="last-message-title">
-                                                {% set title = sub_category.last_message.title %}
-                                                {{ title|length > 20 ? title|slice(0,20) ~ '...' : title }}
+                            {% endif %}
+                        </div>
+                        <div class="category-content">
+                            {% for sub_category in c_array %}
+                                <div class="forum-sub-category">
+                                    <div class="forum-sub-category-left">
+                                        <a href="{{ path('sub_category', { 'sub_category_id': sub_category.id }) }}" class="sub-category-name-container">
+                                            <div class="sub-category-name">
+                                                {{ sub_category.name }}
                                             </div>
-                                            <div class="last-message-infos">
-                                                <div class="last-message-username">
-                                                    {{ sub_category.last_message.username }}
-                                                </div>
-                                                <div class="sub-category-last-message-date">
-                                                    Le {{ sub_category.last_message.date }}
-                                                </div>
+                                            <div class="sub-category-description">
+                                                {% if sub_category.description is not null %}
+                                                    {{ sub_category.description }}
+                                                {% endif %}
                                             </div>
                                         </a>
+                                        <div class="sub-category-infos">
+                                            <div class="sub-category-topics">
+                                                <span>{{ sub_category.topics_nb }}</span> Sujet{{ sub_category.topics_nb > 1 ? 's' : '' }}
+                                            </div>
+                                            <div class="sub-category-messages">
+                                                <span>{{ sub_category.messages_nb }}</span> Message{{ sub_category.topics_nb > 1 ? 's' : '' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sub-category-last-message">
+                                        {% if sub_category.last_message is not null %}
+                                            <div class="last-message-picture">
+                                                <a href="{{ path('user_profile', { 'name': sub_category.last_message.username }) }}">
+                                                    <img src="{{ asset('images/') ~ sub_category.last_message.photo }}">
+                                                </a>
+                                            </div>
+                                            <a href="{{ path('topic', { 'topic_id': sub_category.last_message.topic_id,
+                                                    'topic_slug': sub_category.last_message.topic_slug })
+                                                    ~ '#' ~ sub_category.last_message.id }}" class="last-message-right">
+                                                <div class="last-message-title">
+                                                    {% set title = sub_category.last_message.title %}
+                                                    {{ title|length > 20 ? title|slice(0,20) ~ '...' : title }}
+                                                </div>
+                                                <div class="last-message-infos">
+                                                    <div class="last-message-username">
+                                                        {{ sub_category.last_message.username }}
+                                                    </div>
+                                                    <div class="sub-category-last-message-date">
+                                                        Le {{ sub_category.last_message.date }}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    {% if is_admin %}
+                                        <div class="sub-category-move">
+                                            <div></div><div></div><div></div>
+                                        </div>
                                     {% endif %}
                                 </div>
-                                {% if is_admin %}
-                                    <div class="sub-category-move">
-                                        <div></div><div></div><div></div>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-            {% if is_admin %}
-                <script src="{{ asset('js/move-category.js') }}"></script>
-            {% endif %}
+                {% endfor %}
+            {% endblock %}
         {% endblock %}
     </div>
 
@@ -97,4 +99,10 @@
             {{ include('_right_panel.html.twig') }}
         </aside>
     {% endblock %}
+{% endblock %}
+
+{% block scripts %}
+    {% if is_admin %}
+        <script src="{{ asset('js/move-category.js') }}"></script>
+    {% endif %}
 {% endblock %}
