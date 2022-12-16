@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>{{ category }}&gt;{{ sub_category }}</h1>
-    <h2>Nouveau Sujet</h2>
+    <h1>Nouveau Sujet</h1>
+    <h2>{{ category }} <span>&gt;</span> {{ sub_category }}</h2>
     {{ form(form) }}
 {% endblock %}
