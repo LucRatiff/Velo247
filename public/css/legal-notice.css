@@ -1,0 +1,20 @@
+h1 {
+    color: var(--main-blue);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+h2 {
+    color: var(--main-blue);
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.notice-link {
+    color: var(--brown);
+    font-weight: bold;
+}
+
+.notice-link:hover {
+    color: var(--light-brown);
+}

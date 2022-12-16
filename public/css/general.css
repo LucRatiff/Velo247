@@ -136,6 +136,10 @@ main {
     font-size: 80px;
 }
 
+#title:hover {
+    color: var(--light-brown);
+}
+
 #legend {
     padding-left: 20px;
     font-style: italic;
