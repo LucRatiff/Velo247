@@ -1,0 +1,7 @@
+@import 'form.css';
+
+h1 {
+    color: var(--main-blue);
+    font-weight: bold;
+    font-size: 1.5rem;
+}

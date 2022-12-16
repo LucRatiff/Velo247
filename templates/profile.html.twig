@@ -7,50 +7,52 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1 class="profile-username">
-        <div class="username">{{ user.name }}</div>
-        {% if own %}
-            <div class="edit-profile">
-                <a href="{{ path('edit_profile', { 'name': user.name }) }}">Modifier</a>
-            </div>
-        {% endif %}
-    </h1>
     <div class="profile-content">
+        <div class="profile-username">
+            <h1 class="username">{{ user.name }}</h1>
+            {% if own %}
+                <a href="{{ path('edit_profile', { 'name': user.name }) }}" class="edit-profile">Modifier</a>
+            {% endif %}
+        </div>
         <div class="photo">
             <div><img src="{{ asset('images/') ~ user.photo }}"></div>
         </div>
         <div class="details">
-            <p><span>Inscrit depuis le :</span> {{ user.date|date("d/m/Y") }}</p>
+            <p><span>Inscrit depuis le :</span><span>{{ user.date|date("d/m/Y") }}</span></p>
             {% set roles = user.roles %}
             {% if roles.ROLE_ADMIN is defined %}
-                <p><span><strong class="admin">Administrateur</strong></p>
+                <strong class="admin">Administrateur</strong>
             {% elseif roles.ROLE_MOD is defined %}
-                <p><span><strong class="mod">Modérateur</strong></p>
+                <strong class="mod">Modérateur</strong>
             {% endif %}
-            <p><span>Messages postés sur le forum :</span> {{ user.messagesNb }}</p>
+            <p><span>Messages postés sur le forum :</span><span>{{ user.messagesNb }}</span></p>
             {% if user.city is not null %}
-                <p><span>Localisation :</span> {{ user.city }}, {{ user.country }}</p>
-            {% endif %}
-            {% if user.signature is not null %}
-                <p><span>Signature :</span><br> {{ user.signature }}</p>
-            {% endif %}
-            {% if own or roles.ROLE_ADMIN is defined or roles.ROLE_MOD is defined %}
-                <div class="posts">
-                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'topics' }) }}">
-                        Sujets créés
-                    </a>
-                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'messages' }) }}">
-                        Messages postés
-                    </a>
-                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'galleries' }) }}">
-                        Galleries photo créées
-                    </a>
-                    <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'gallery_messages' }) }}">
-                        Messages postés dans les galleries photo
-                    </a>
-                </div>
+                <p><span>Localisation :</span><span>{{ user.city }}, {{ user.country }}</span></p>
             {% endif %}
         </div>
+        {% if user.signature is not null %}
+            <div class="signature"><span>Signature :</span><span>{{ user.signature }}</span></p></div>
+        {% endif %}
+        {% if own or roles.ROLE_ADMIN is defined or roles.ROLE_MOD is defined %}
+            <div class="posts">
+                <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'topics' }) }}">
+                    Sujets créés
+                </a>
+                <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'messages' }) }}">
+                    Messages postés
+                </a>
+                <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'galleries' }) }}">
+                    Galleries photo créées
+                </a>
+                <a href="{{ path('profile_posts', { 'name': user.name, 'category': 'gallery_messages' }) }}">
+                    Messages postés dans les galleries photo
+                </a>
+            </div>
+        {% endif %}
+        {% if own %}
+            <div class="logout-container">
+                <a href="{{ path('logout') }}" class="logout">Déconnexion</a>
+            </div>
+        {% endif %}
     </div>
-    <a href="{{ path('logout') }}" class="logout">Déconnexion</a>
 {% endblock %}

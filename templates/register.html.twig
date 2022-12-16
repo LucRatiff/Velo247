@@ -2,7 +2,11 @@
 
 {% block title %}Inscription - {% endblock %}
 
-{% block body %}
+{% block style_addition %}
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
+{% block main_content %}
     <h1>Inscription</h1>
     {% if errors is defined %}
         <div class="errors">{{ errors }}</div>
