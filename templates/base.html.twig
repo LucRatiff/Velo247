@@ -34,6 +34,9 @@
                                 <div class="notifs-container">
                                     <div class="notifs">
                                         <img src="{{ asset('images/notifs.png') }}">
+                                        <div id="notif-modal" class="hidden">
+                                        </div>
+                                        <div id="notif-modal-arrow" class="hidden"></div>
                                     </div>
                                     {% if app.user.notifsNb > 0 %}
                                         <div class="notifs-nb">
@@ -41,10 +44,8 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <script src="{{ asset('js/notifs.js') }}"></script>
                             {% else %}
                                 <a href="{{ path('login') }}">Se connecter/S'inscrire</a>
-                                <script src="{{ asset('js/login.js') }}"></script>
                             {% endif %}
                         {% endblock %}
                     </div>
@@ -90,5 +91,8 @@
             </div>
         {% endblock %}
     </body>
+    {% if loggedin %}
+        <script src="{{ asset('js/notifs.js') }}"></script>
+    {% endif %}
     {% block scripts %}{% endblock %}
 </html>

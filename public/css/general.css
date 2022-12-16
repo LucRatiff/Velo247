@@ -87,10 +87,33 @@ ul {
 .notifs {
     padding: 0 6px;
     cursor: pointer;
+    position: relative;
 }
 
 .notifs img {
     height: 20px;
+}
+
+#notif-modal {
+   border: 2px solid var(--main-blue);
+   background: #fff;
+   position: absolute;
+   top: 30px;
+}
+
+.notif-modal-arrow {
+    border-top: 2px solid var(--main-blue);
+    border-right: 2px solid var(--main-blue);
+    height: 50px;
+    width: 50px;
+    transform: rotate(-45deg);
+    background: #fff;
+    position: absolute;
+    top: 20px;
+}
+
+.hidden {
+    display: none;
 }
 
 .main-and-footer {
