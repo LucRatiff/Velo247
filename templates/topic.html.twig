@@ -42,34 +42,39 @@
                     </div>
                 {% endif %}
                 <div class="author-messages-nb">
-                    {{ author.messages_nb }}
+                    <span>{{ author.messages_nb }}</span> Messages
                 </div>
                 {% if author.city is not null %}
                     <div class="location">
-                        {{ author.city }}, {{ author.country }}
+                        <div class="location-title">Localisation:</div>
+                        <span>{{ author.city }}, {{ author.country }}</span>
                     </div>
                 {% endif %}
             </div>
             <div class="message-side">
-                <div class="number">
-                    <a href="{{ path(app.request.attributes.get('_route'),
-                        app.request.attributes.get('_route_params')) ~ '?msg=' ~ message.id }}">
-                        #{{ i }}
-                    </a>
-                </div>
-                <div class="content">
-                    {{ message.content }}
-                </div>
-                {% if author.signature is not null %}
-                    <div class="signature">
-                        {{ author.signature }}
+                <div class="message-top">
+                    <div class="number">
+                        <a href="{{ path(app.request.attributes.get('_route'),
+                            app.request.attributes.get('_route_params')) ~ '#' ~ message.id }}">
+                            #{{ i }}
+                        </a>
                     </div>
-                {% endif %}
-                <div class="message-infos">
-                    <span class="message-date">Le {{ message.date }}</span>
-                    {% if message.last_edited is not null %}
-                        <span class="message-last-edited">, {{ message.last_edited }}</span>
+                    <div class="content">
+                        {{ message.content }}
+                    </div>
+                </div>
+                <div class="message-bottom">
+                    {% if author.signature is not null %}
+                        <div class="signature">
+                            {{ author.signature }}
+                        </div>
                     {% endif %}
+                    <div class="message-infos">
+                        <span class="message-date">Le {{ message.date }}</span>
+                        {% if message.last_edited is not null %}
+                            <span class="message-last-edited">, {{ message.last_edited }}</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

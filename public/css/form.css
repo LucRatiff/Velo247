@@ -14,19 +14,33 @@ input {
 }
 
 button[type="submit"] {
-    border: 2px solid var(--main-blue-hover);
-    border-radius: 4px;
-    padding: 8px 10px;
-    background: var(--main-blue);
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 5px 20px;
+    background: var(--brown);
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 2px #090909;
     font-family: var(--default-font);
     font-size: 16px;
-    font-weight: bold;
-    color: #fff;
     cursor: pointer;
 }
 
 button[type="submit"]:hover {
-    border-color: var(--main-blue);
-    background: var(--main-blue-hover);
+    background: var(--light-brown);
 }
 
+textarea {
+    border: 1px solid var(--main-blue);
+    border-radius: 6px;
+    padding: 10px 20px;
+    min-height: 200px;
+    resize: none;
+    box-sizing: border-box;
+    
+}
+
+input:focus, textarea:focus{
+    outline: none;
+}

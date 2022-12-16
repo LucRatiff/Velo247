@@ -1,13 +1,140 @@
 @import 'forum.css';
+@import 'form.css';
 
 .message {
     display: flex;
     border: 1px solid var(--light-blue-grey);
     border-radius: 6px;
+    margin-bottom: 10px;
     background: #fff;
+}
+
+.message > * {
+    padding: 10px;
 }
 
 .user-side {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    width: 200px;
+}
+
+.photo img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+
+.author {
+    color: var(--main-blue);
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.author:hover {
+    color: var(--main-blue-hover);
+}
+
+.role {
+    color: var(--brown);
+    font-weight: bold;
+}
+
+.author-messages-nb {
+    color: var(--blue-grey);
+    font-size: 0.8rem;
+}
+
+.author-messages-nb span {
+    color: var(--main-blue);
+    font-weight: bold;
+}
+
+.location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.location-title {
+    color: var(--blue-grey);
+    font-size: 0.9rem;
+}
+
+.message-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 10px;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.message-top {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.number {
+    text-align: right;
+}
+
+.number a {
+    color: var(--blue-grey);
+}
+
+.message-bottom {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.signature {
+    border-top: 1px solid var(--blue-grey);
+    padding-top: 5px;
+    color: var(--blue-grey);
+}
+
+.message-infos {
+    text-align: right;
+    color: var(--blue-grey);
+}
+
+.message-last-edited {
+    font-style: italic;
+}
+
+.answer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.answer h2 {
+    margin: 20px 0 10px;
+    padding-left: 5px;
+    color: var(--main-blue);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#new_message label {
+    display: none;
+}
+
+#new_message button {
+    margin-top: 10px;
+}
+
+#new_message {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+#new_message textarea {
+    width: 100%;
 }
