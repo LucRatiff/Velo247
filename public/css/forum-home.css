@@ -35,6 +35,7 @@
     row-gap: 10px;
     border-bottom: 1px solid var(--light-blue-grey);
     padding: 10px;
+    position: relative;
 }
 
 .forum-sub-category:last-child {
@@ -118,4 +119,9 @@
     color: var(--blue-grey);
     font-style: italic;
     font-size: 0.8rem;
+}
+
+.sub-category-move {
+    position: absolute;
+    right: 20px;
 }

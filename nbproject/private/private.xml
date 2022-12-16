@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/axel/Projets/symfony/forum/public/css/form.css</file>
-            <file>file:/home/axel/Projets/symfony/forum/templates/forum_sub_category.html.twig</file>
-            <file>file:/home/axel/Projets/symfony/forum/templates/topic.html.twig</file>
-            <file>file:/home/axel/Projets/symfony/forum/public/css/general.css</file>
-            <file>file:/home/axel/Projets/symfony/forum/public/css/forum.css</file>
-            <file>file:/home/axel/Projets/symfony/forum/templates/base.html.twig</file>
-            <file>file:/home/axel/Projets/symfony/forum/public/css/forum-home.css</file>
-            <file>file:/home/axel/Projets/symfony/forum/templates/forum.html.twig</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Entity/Topic.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Entity/SubCategory.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/src/Controller/ForumController.php</file>
+            <file>file:/home/axel/Projets/symfony/forum/public/css/new-topic.css</file>
             <file>file:/home/axel/Projets/symfony/forum/public/css/topic.css</file>
         </group>
     </open-files>

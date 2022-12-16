@@ -10,13 +10,6 @@
         <link rel="icon" href="{{ asset('images/icon.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('css/general.css') }}">
-        {% block style %}
-            {% if loggedin %}
-                <link rel="stylesheet" href="{{ asset('css/loggedin_features.css') }}">
-            {% else %}
-                <link rel="stylesheet" href="{{ asset('css/authentication.css') }}">
-            {% endif %}
-        {% endblock %}
         {% block style_addition %}{% endblock %}
     </head>
     
