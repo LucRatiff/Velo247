@@ -132,6 +132,13 @@ class SubCategory
     public function incrementTopicsNb(): self
     {
         $this->topics_nb++;
+        $this->messages_nb++;
+        return $this;
+    }
+    
+    public function incrementMessagesNb(): self
+    {
+        $this->messages_nb++;
         return $this;
     }
 

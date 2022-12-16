@@ -112,6 +112,7 @@ class ForumController extends AbstractController
             string $topic_slug): Response
     {
         $topic = $registry->getRepository(Topic::class)->find($topic_id);
+        $subCategory = $topic->getSubCategory();
         
         if (!$topic) {
             throw $this->createNotFoundException('Ce sujet n\'existe pas ou a été supprimé');
@@ -122,9 +123,9 @@ class ForumController extends AbstractController
             'title' => $topic->getTitle(),
             'locked' => $topic->isLocked(),
             'pinned' => $topic->isPinned(),
-            'category' => $topic->getSubCategory()->getName(),
-            'sub_category' => $topic->getSubCategory()->getName(),
-            'sub_category_id' => $topic->getSubCategory()->getId()
+            'category' => $subCategory->getName(),
+            'sub_category' => $subCategory->getName(),
+            'sub_category_id' => $subCategory->getId()
         ];
         
         $messagesArray = array();
@@ -182,11 +183,13 @@ class ForumController extends AbstractController
                         $user, $newMessage->getMessage(), $topic);
                 $topic->addMessage($message);
                 $user->incrementMessagesNb();
+                $subCategory->incrementMessagesNb();
 
                 $manager = $registry->getManager();
                 $manager->persist($topic);
                 $manager->persist($message);
                 $manager->persist($user);
+                $manager->persist($subCategory);
                 $manager->flush();
 
                 return $this->redirectToRoute('topic', ['topic_id' => $topic_id, 'topic_slug' => $topic_slug]);
