@@ -8,8 +8,8 @@
     <a href="{{ path('user_profile', { 'name': user.name }) }}" class="go-back">
         Retour
     </a>
-    <div class="username">{{ user.name }}</div>
-    <div class="title">{{ title }}</div>
+    <h1 class="username">{{ user.name }}</h1>
+    <h2 class="posts-title">{{ title }}</h2>
     <div class="posts-list">
         {% if category == 'topics' %}
             {% for t in datas %}
@@ -19,7 +19,7 @@
                             {{ t.title }}
                         </div>
                         <div class="upper-part-infos">
-                            Dans {{ t.category }}&gt;{{ t.sub_category }} Le {{ t.date }}
+                            dans {{ t.category }} &gt; {{ t.sub_category }}, le {{ t.date }}
                         </div>
                     </div>
                     <div class="content">
@@ -35,7 +35,7 @@
                             {{ m.topic_title }}
                         </div>
                         <div class="upper-part-infos">
-                            Dans {{ m.category }}&gt;{{ m.sub_category }} Le {{ m.date }}
+                            dans {{ m.category }} &gt; {{ m.sub_category }}, le {{ m.date }}
                         </div>
                     </div>
                     <div class="content">
@@ -51,7 +51,7 @@
                             {{ g.title }}
                         </div>
                         <div class="upper-part-infos">
-                            Le {{ g.date }}
+                            le {{ g.date }}
                         </div>
                     </div>
                     <div class="content">
@@ -67,7 +67,7 @@
                             {{ gm.gallery_title }}
                         </div>
                         <div class="upper-part-infos">
-                            Le {{ gm.date }}
+                            le {{ gm.date }}
                         </div>
                     </div>
                     <div class="content">

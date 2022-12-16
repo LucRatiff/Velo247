@@ -149,7 +149,7 @@ class UserProfileController extends AbstractController
                 }
                 break;
             case 'galleries':
-                $title = 'Liste des galleries photo';
+                $title = 'Liste des galeries photo';
                 $galleries = $user->getGalleries();
                 
                 foreach ($galleries as $g) {
@@ -163,7 +163,7 @@ class UserProfileController extends AbstractController
                 }
                 break;
             case 'gallery_messages':
-                $title = 'Liste des commentaires sur les galleries photo';
+                $title = 'Liste des commentaires sur les galeries photo';
                 $galleryMessages = $user->getMessageGalleries();
                 
                 foreach ($galleryMessages as $m) {

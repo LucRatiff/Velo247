@@ -4,7 +4,6 @@
     align-items: flex-start;
     column-gap: 20px;
     padding-top: 20px;
-    background: var(--grey-bg);
 }
 
 .left-content {
