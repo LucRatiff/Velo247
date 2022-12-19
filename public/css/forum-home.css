@@ -125,3 +125,7 @@
     position: absolute;
     right: 20px;
 }
+
+@media (max-width: 480px) {
+    
+}

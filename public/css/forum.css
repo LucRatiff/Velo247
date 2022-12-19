@@ -62,3 +62,15 @@
 .new-topic:hover {
     background: var(--light-brown);
 }
+
+@media (max-width: 985px) {
+    .main-content {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 985px) {
+    .left-content {
+        width: 100%;
+    }
+}

@@ -6,7 +6,7 @@ aside {
     border: 2px solid var(--main-blue);
     border-radius: 6px;
     padding: 20px;
-    width: 300px;
+    max-width: 300px;
     height: auto;
     background: #fff;
     box-shadow: 0 0 4px #090909;
