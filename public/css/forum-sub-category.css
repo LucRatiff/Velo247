@@ -90,3 +90,26 @@
     width: 50px;
     border-radius: 50%;
 }
+
+@media (max-width: 985px) {
+    .main-content {
+        row-gap: 20px;
+    }
+}
+
+@media (max-width: 680px) {
+    .topic-other-side {
+        column-gap: 20px;
+    }
+    
+    .last-message-side {
+        column-gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .topic {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+}

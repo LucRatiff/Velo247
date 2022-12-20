@@ -138,3 +138,34 @@
 #new_message textarea {
     width: 100%;
 }
+
+@media (max-width: 680px) {
+    .user-side {
+        width: 30%;
+    }
+}
+
+@media (max-width: 500px) {
+    .main-content {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    
+    .message {
+        flex-direction: column;
+    }
+    
+    .user-side {
+        flex-direction: row;
+        column-gap: 10px;
+    }
+    
+    .photo img {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .author-messages-nb, .location {
+        display: none;
+    }
+}
