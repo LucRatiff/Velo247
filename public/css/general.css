@@ -135,10 +135,11 @@ main {
 
 #title {
     font-size: 80px;
+    color: var(--light-brown);
 }
 
 #title:hover {
-    color: var(--light-brown);
+    color: #fff;
 }
 
 #legend {
