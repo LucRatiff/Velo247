@@ -8,9 +8,7 @@
 
 {% block main_content %}
     {% if error %}
-        <div class="error">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
+        <div class="error">Identifiants incorrects</div>
     {% endif %}
     
     <form action="{{ path('login') }}" method="post">
