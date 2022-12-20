@@ -160,7 +160,7 @@ class ForumController extends AbstractController
         }
         
         $answer = ($this->isGranted("ROLE_MOD") || $this->isGranted("ROLE_ADMIN"))
-                || ($this->isGranted('ROLE_USER') && !$m->isLocked());
+                || ($this->isGranted('ROLE_USER') && !$topic->isLocked());
         
         $twigArray = [
             'topic' => $topicArray,

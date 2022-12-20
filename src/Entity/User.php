@@ -71,6 +71,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $date = null;
+    
+    private ?string $repeatPassword = null;
 
     public function __construct()
     {
@@ -457,6 +459,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function incrementMessagesNb(): self
     {
         $this->messages_nb++;
+        return $this;
+    }
+    
+    public function getRepeatPassword(): ?string
+    {
+        return $this->repeatPassword;
+    }
+    
+    public function setRepeatPassword(?string $repeatPassword): self
+    {
+        $this->repeatPassword = $repeatPassword;
+        
         return $this;
     }
 }

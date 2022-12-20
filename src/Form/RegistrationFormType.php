@@ -36,6 +36,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => 'Mot de passe'
             ])
+            ->add('repeatPassword', PasswordType::class, ['label' => 'Confirmer le mot de passe'])
         ;
     }
 

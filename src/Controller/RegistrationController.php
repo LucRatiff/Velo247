@@ -23,19 +23,27 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('plainPassword')->getData();
+            $repeatPassword = $form->getData()->getRepeatPassword();
+            
+            if ($repeatPassword == null || $repeatPassword != $password) {
+                return $this->render('register.html.twig', [
+                    'errors' => 'Les mots de passe ne correspondent pas',
+                    'registrationForm' => $form->createView(),
+                ]);
+            }
             if ($u->fieldIsValid('name', $user->getName())) {
                 $u->reserveName($user->getName());
             } else {
                 return $this->render('register.html.twig', [
-                    'error_name' => true,
+                    'errors' => 'Ce nom n\'est pas disponible',
                     'registrationForm' => $form->createView(),
                 ]);
             }
             
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
+                    $user, $password
                 )
             );
 
