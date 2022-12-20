@@ -21,6 +21,10 @@
     width: 200px;
 }
 
+.photo {
+    position: relative;
+}
+
 .photo img {
     height: 80px;
     width: 80px;
@@ -157,7 +161,18 @@
     
     .user-side {
         flex-direction: row;
+        align-items: baseline;
         column-gap: 10px;
+    }
+    
+    .photo {
+        padding: 20px
+    }
+    
+    .photo a {
+        position: absolute;
+        top: 5px;
+        right: 0;
     }
     
     .photo img {
