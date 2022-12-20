@@ -94,3 +94,9 @@
 .logout:hover {
     background: var(--main-red-hover);
 }
+
+@media (max-width: 480px) {
+    .details p {
+        flex-direction: column;
+    }
+}
