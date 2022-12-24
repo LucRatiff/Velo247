@@ -26,7 +26,7 @@ class NotificationManager
      * @return array|null tableau de notifs dans leur forme affichable,
      * encapsulées soit dans des a, soit dans des div
      */
-    public function getNotificationsAsStrings(User $user): ?array
+    public static function getNotificationsAsStrings(User $user): ?array
     {
         $notifs = $user->getNotifications();
         

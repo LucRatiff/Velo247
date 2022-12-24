@@ -45,6 +45,7 @@ security:
         - { path: '^/admin', roles: ROLE_ADMIN }
         - { path: '^/forum/new', roles: ROLE_USER }
         - { path: '^/profile/edit', roles: ROLE_USER }
+        - { path: '^/notification', roles: ROLE_USER }
 
 when@test:
     security:
