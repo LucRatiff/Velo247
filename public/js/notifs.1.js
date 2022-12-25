@@ -17,7 +17,7 @@ document.getElementsByClassName('notifs-container')[0].addEventListener('click',
 });
 
 function notifModalContentWriter() {
-    fetch('https://' + window.location.hostname + ':8000/notification', {
+    fetch('https://' + window.location.hostname + '/notification', {
         method: 'POST'
     }).then((response) => {
         response.text().then((html => {
