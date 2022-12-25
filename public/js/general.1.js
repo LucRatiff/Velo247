@@ -1,3 +1,4 @@
+const host = 'https://' + window.location.hostname + (window.location.port.length === 0 ? "" : ":" + window.location.port);
 let modalOpen = false;
 
 /**

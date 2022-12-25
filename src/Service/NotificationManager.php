@@ -39,7 +39,7 @@ class NotificationManager
                     if ($n->getLink() != null) {
                         $html += '<a href="'.$n->getLink().'">'.self::$func($n).'</a>';
                     } else {
-                        $html += '<div>'.self::$func($n).'</div>';
+                        $html += '<span>'.self::$func($n).'</span>';
                     }
                 }
             }
