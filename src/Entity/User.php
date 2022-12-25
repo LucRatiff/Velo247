@@ -359,6 +359,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    public function purgeNotifications(): self
+    {
+        foreach ($this->notifications->toArray() as $n) {
+            if ($n->getUser() === $this) {
+                $n->setUser(null);
+            }
+        }
+        
+        $this->notifications->clear();
+        
+        return $this;
+    }
 
     /**
      * @return Collection<int, Gallery>

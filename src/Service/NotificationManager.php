@@ -30,6 +30,7 @@ class NotificationManager
     {
         $html = '';
         $notifs = $user->getNotifications();
+        $user->purgeNotifications();
         
         if ($notifs != null && count($notifs) > 0) {
             foreach ($notifs as $n) {
