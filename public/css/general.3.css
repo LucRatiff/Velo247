@@ -85,6 +85,20 @@ ul {
     border-color: var(--main-blue);
 }
 
+.notifs-container {
+    position: relative;
+}
+
+#notifs-nb {
+    border-radius: 2px;
+    padding: 1px 2px;
+    background: var(--main-red);
+    font-size: 0.8rem;
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
+
 .notifs {
     padding: 0 6px;
     cursor: pointer;

@@ -1,3 +1,7 @@
+let notifsNb = 0;
+
+setInterval(checkNotifNb, 60000);
+
 document.getElementsByClassName('notifs-container')[0].addEventListener('click', () => {
     if (modalOpen) {
         return;
@@ -24,6 +28,7 @@ document.getElementsByClassName('notifs-container')[0].addEventListener('click',
     document.getElementsByClassName('notifs')[0].appendChild(notifModal);
     createModal('notif-modal');
     notifModalContentWriter();
+    removeNotifNb();
 });
 
 function notifModalContentWriter() {
@@ -39,4 +44,38 @@ function notifModalContentWriter() {
     });
 }
 
-//créer un timer pour vérifier le nombre de notifs
+function checkNotifNb() {
+    fetch(host + '/notification_nb', {
+        method: 'POST'
+    }).then((response) => {
+        response.text().then((number => {
+            if (number != notifsNb) {
+                if (notifsNb == 0) {
+                    displayNotifNb();
+                    updateNotifNb(notifsNb);
+                } else if (number == 0) {
+                    removeNotifNb();
+                } else {
+                    updateNotifNb(notifsNb);
+                }
+                notifsNb = number;
+            }
+        }));
+    });
+}
+
+function displayNotifNb() {
+    if (typeof document.getElementById('notifs-nb') === 'undefined') {
+        let div = document.createElement('div');
+        div.id = 'notifs-nb';
+        document.getElementsByClassName('notifs-container')[0].appendChild(div);
+    }
+}
+
+function removeNotifNb() {
+    document.getElementById('notifs-nb').remove();
+}
+
+function updateNotifNb(nb) {
+    document.getElementById('notifs-nb').innerHTML = nb;
+}

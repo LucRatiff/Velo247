@@ -9,7 +9,7 @@
         <title>{% block title %}{% endblock %}Velo 24/7</title>
         <link rel="icon" href="{{ asset('images/icon.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset('css/general.2.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/general.3.css') }}">
         {% block style_addition %}{% endblock %}
     </head>
     
@@ -29,7 +29,7 @@
                                         <img src="{{ asset('images/notifs.png') }}">
                                     </div>
                                     {% if app.user.notifsNb > 0 %}
-                                        <div class="notifs-nb">
+                                        <div id="notifs-nb">
                                             {{ app.user.notifsNb }}
                                         </div>
                                     {% endif %}
@@ -82,7 +82,7 @@
     </body>
     <script src="{{ asset('js/general.1.js') }}"></script>
     {% if loggedin %}
-        <script src="{{ asset('js/notifs.2.js') }}"></script>
+        <script src="{{ asset('js/notifs.3.js') }}"></script>
     {% endif %}
     {% block scripts %}{% endblock %}
 </html>
