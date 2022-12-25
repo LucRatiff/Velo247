@@ -10,12 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationController extends AbstractController
 {
-    #[Route('/notification', name: 'notification', methods: ['PUT'])]
+    #[Route('/notification', name: 'notification', methods: ['POST'])]
     public function index(): Response
     {
         /** @var User $user */
         $user = $this->getUser();
         
-        return new Response(NotificationManager::getNotificationsAsStrings($user));
+        return new Response(NotificationManager::getNotificationsAsHtml($user));
     }
 }

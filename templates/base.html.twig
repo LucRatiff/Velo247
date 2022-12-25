@@ -9,7 +9,7 @@
         <title>{% block title %}{% endblock %}Velo 24/7</title>
         <link rel="icon" href="{{ asset('images/icon.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset('css/general.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/general.1.css') }}">
         {% block style_addition %}{% endblock %}
     </head>
     
@@ -27,9 +27,6 @@
                                 <div class="notifs-container">
                                     <div class="notifs">
                                         <img src="{{ asset('images/notifs.png') }}">
-                                        <div id="notif-modal" class="hidden">
-                                        </div>
-                                        <div id="notif-modal-arrow" class="hidden"></div>
                                     </div>
                                     {% if app.user.notifsNb > 0 %}
                                         <div class="notifs-nb">
@@ -83,8 +80,9 @@
             </div>
         {% endblock %}
     </body>
+    <script src="{{ asset('js/general.js') }}"></script>
     {% if loggedin %}
-        <script src="{{ asset('js/notifs.js') }}"></script>
+        <script src="{{ asset('js/notifs.1.js') }}"></script>
     {% endif %}
     {% block scripts %}{% endblock %}
 </html>

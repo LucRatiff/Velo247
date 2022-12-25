@@ -23,32 +23,31 @@ class NotificationManager
     
     /**
      * @param User $user
-     * @return array|null tableau de notifs dans leur forme affichable,
+     * @return string notifs dans leur forme affichable,
      * encapsulées soit dans des a, soit dans des div
      */
-    public static function getNotificationsAsStrings(User $user): ?array
+    public static function getNotificationsAsHtml(User $user): string
     {
+        $html = '';
         $notifs = $user->getNotifications();
         
-        if ($notifs != null) {
-            $array = array();
-            
+        if ($notifs != null && count($notifs) > 0) {
             foreach ($notifs as $n) {
                 $func = 'getNotif'.$n->getType();
                 
                 if (function_exists(self::$func)) {
                     if ($n->getLink() != null) {
-                        $array[] = '<a href="'.$n->getLink().'">'.self::$func($n).'</a>';
+                        $html += '<a href="'.$n->getLink().'">'.self::$func($n).'</a>';
                     } else {
-                        $array[] = '<div>'.self::$func($n).'</div>';
+                        $html += '<div>'.self::$func($n).'</div>';
                     }
                 }
             }
-            
-            return count($array) > 0 ? $array : null;
+        } else {
+            $html = '<div id="no-notif">Vous n\'avez pas de notification</div>';
         }
         
-        return null;
+        return $html;
     }
     
     private static function strong(string $text): string
