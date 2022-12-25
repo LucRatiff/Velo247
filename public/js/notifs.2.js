@@ -31,45 +31,10 @@ function notifModalContentWriter() {
         method: 'POST'
     }).then((response) => {
         response.text().then((html => {
-//            if (typeof document.getElementById('notif-modal') !== 'undefined') {
-//                document.getElementById('notif-loading').remove();
-//                document.getElementById('notif-modal-content-content').innerHTML += html;
-//            }
-            document.getElementById('notif-loading').remove();
-            document.getElementById('notif-modal-content-content').innerHTML =
-                    '<a href="">Blabla: <strong>blabla</strong></a>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>'
-                    + '<span>blablabla: <strong>feefhef</strong></span>';
+            if (typeof document.getElementById('notif-modal') !== 'undefined') {
+                document.getElementById('notif-loading').remove();
+                document.getElementById('notif-modal-content-content').innerHTML = html;
+            }
         }));
     });
 }
