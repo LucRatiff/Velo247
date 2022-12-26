@@ -2,7 +2,6 @@
 
 namespace App\Controller; //TODO nouveaux messages
 
-
 use App\Entity\MessageTopic;
 use App\Entity\Notification;
 use App\Entity\SubCategory;
@@ -14,7 +13,6 @@ use App\Service\Badge;
 use App\Service\Constants;
 use App\Service\NewMessage;
 use App\Service\NewTopic;
-use App\Service\NotificationManager;
 use App\Service\NotificationType;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -191,6 +189,17 @@ class ForumController extends AbstractController
                 $subCategory->incrementMessagesNb();
 
                 $manager = $registry->getManager();
+                
+                $messagesNb = $user->getMessagesNb();
+                $badgeValue = Badge::getMessagesBadgeIntValueFromMessagesNb($messagesNb);
+                if ($badgeValue != null) {
+                    $notif = (new Notification())->setType(NotificationType::Badge->name)
+                            ->setBadge($badgeValue)
+                            ->setDate((new \DateTime('now'))->getTimestamp());
+                    $user->addNotification($notif);
+                    $manager->persist($notif);
+                }
+                
                 $manager->persist($topic);
                 $manager->persist($message);
                 $manager->persist($user);
@@ -234,14 +243,18 @@ class ForumController extends AbstractController
             $subCategory->setLastMessage($message);
             $user->incrementMessagesNb();
             
+            $manager = $registry->getManager();
+            
             $messagesNb = $user->getMessagesNb();
-            if (NotificationManager::isAchieved(null, $messagesNb)) {
+            $badgeValue = Badge::getMessagesBadgeIntValueFromMessagesNb($messagesNb);
+            if ($badgeValue != null) {
                 $notif = (new Notification())->setType(NotificationType::Badge->name)
-                        ->setBadge(Badge::getMessagesBadgeIntValueFromMessagesNb($messagesNb))
+                        ->setBadge($badgeValue)
                         ->setDate((new \DateTime('now'))->getTimestamp());
+                $user->addNotification($notif);
+                $manager->persist($notif);
             }
             
-            $manager = $registry->getManager();
             $manager->persist($message);
             $manager->persist($topic);
             $manager->persist($subCategory);

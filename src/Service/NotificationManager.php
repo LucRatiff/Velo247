@@ -37,11 +37,6 @@ class NotificationManager
         return $html;
     }
     
-    public static function isAchieved(string $type, mixed $value): bool
-    {
-        
-    }
-    
     private static function strong(string $text): string
     {
         return '<strong>'.$text.'</strong>';

@@ -11,7 +11,13 @@ enum Badge implements EnumUtils
     
     public function fromName(string $name): ?string
     {
+        foreach (self::cases() as $type) {
+            if ($name == $type->name) {
+                return $type->value;
+            }
+        }
         
+        return null;
     }
     
     public function getMessagesBadgeIntValueFromMessagesNb(int $messagesNb): ?int
