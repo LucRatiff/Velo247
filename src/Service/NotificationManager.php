@@ -7,20 +7,6 @@ use App\Entity\User;
 
 class NotificationManager
 {
-    const NOTIFICATION_LIST = [
-        'Badge' => 'Vous avez obtenu un nouveau badge : ',
-        'NewResponse' => 'Vous avez de nouvelles réponses à ',
-        'Mention' => ' vous a mentionné à ',
-        'Locked' => 'Votre sujet a été verrouillé : ',
-        'Pinned' => 'Votre sujet a été épinglé : ',
-    ];
-    
-    const BADGE_LIST = [
-        '100Messages' => '100 messages !',
-        '1000Messages' => 'Quelle piplette, 1000 messages !',
-        '10000Messages' => 'Quelle assiduité ! 10 000 messages !'
-    ];
-    
     /**
      * @param User $user
      * @return string notifs dans leur forme affichable,
@@ -51,9 +37,14 @@ class NotificationManager
         return $html;
     }
     
+    public static function isAchieved(string $type, mixed $value): bool
+    {
+        
+    }
+    
     private static function strong(string $text): string
     {
-         return '<strong>'.$text.'</strong>';
+        return '<strong>'.$text.'</strong>';
     }
     
     private static function getNotifBadge(Notification $notif): string

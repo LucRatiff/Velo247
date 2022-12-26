@@ -2,15 +2,20 @@
 
 namespace App\Controller; //TODO nouveaux messages
 
+
 use App\Entity\MessageTopic;
+use App\Entity\Notification;
 use App\Entity\SubCategory;
 use App\Entity\Topic;
 use App\Entity\User;
 use App\Form\Type\NewMessageType;
 use App\Form\Type\NewTopicType;
+use App\Service\Badge;
 use App\Service\Constants;
 use App\Service\NewMessage;
 use App\Service\NewTopic;
+use App\Service\NotificationManager;
+use App\Service\NotificationType;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -228,6 +233,13 @@ class ForumController extends AbstractController
             $subCategory->incrementTopicsNb();
             $subCategory->setLastMessage($message);
             $user->incrementMessagesNb();
+            
+            $messagesNb = $user->getMessagesNb();
+            if (NotificationManager::isAchieved(null, $messagesNb)) {
+                $notif = (new Notification())->setType(NotificationType::Badge->name)
+                        ->setBadge(Badge::getMessagesBadgeIntValueFromMessagesNb($messagesNb))
+                        ->setDate((new \DateTime('now'))->getTimestamp());
+            }
             
             $manager = $registry->getManager();
             $manager->persist($message);
