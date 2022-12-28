@@ -50,7 +50,7 @@ class ForumController extends AbstractController
             foreach ($topicsArray as $t) {
                 if ($t->isPinned()) {
                     $finalTopics[] = $t;
-                    $removals[] = $i;
+                    $removals[] = $t;
                 }
             }
             
