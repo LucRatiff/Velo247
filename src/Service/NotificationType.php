@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-enum NotificationType implements EnumUtils
+enum NotificationType: string implements EnumUtils
 {
     case Badge = 'Vous avez obtenu un nouveau badge : ';
     case NewResponse = 'Vous avez de nouvelles réponses à ';

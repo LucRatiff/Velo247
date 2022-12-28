@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-enum Badge implements EnumUtils
+enum Badge: string implements EnumUtils
 {
     case Messages10 = 'Déjà 10 messages !';
     case Messages100 = '100 messages !';
