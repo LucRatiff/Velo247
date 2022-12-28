@@ -6,11 +6,10 @@ Ce forum est conçu avec Symfony (frameword PHP) ; il est fonctionnel, bien qu'e
 
 ## Hébergement
 
-[site]
+https://naterra.fr
 
 ## TODO List
 
-- terminer le système de notifications internes
 - modifier la photo de profil
 - améliorer les formulaires
 - outils de modération
