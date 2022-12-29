@@ -98,6 +98,13 @@ class SubCategory
     {
         return $this->messages_nb;
     }
+    
+    public function setMessagesNb(int $nb): ?self
+    {
+        $this->messages_nb = $nb;
+        
+        return $this;
+    }
 
     /**
      * @return Collection<int, Topic>

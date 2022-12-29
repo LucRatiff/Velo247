@@ -32,20 +32,20 @@ document.getElementsByClassName('notifs-container')[0].addEventListener('click',
 });
 
 function notifModalContentWriter() {
-    fetch(host + '/notification', {
+    fetch(host + '/api/notification', {
         method: 'POST'
     }).then((response) => {
-        response.text().then((html => {
-            if (typeof document.getElementById('notif-modal') !== 'undefined') {
+        response.text().then((html) => {
+            if (document.getElementById('notif-modal') !== null) {
                 document.getElementById('notif-loading').remove();
                 document.getElementById('notif-modal-content-content').innerHTML = html;
             }
-        }));
+        });
     });
 }
 
 function checkNotifNb() {
-    fetch(host + '/notification_nb', {
+    fetch(host + '/api/notification_nb', {
         method: 'POST'
     }).then((response) => {
         response.text().then((number => {
@@ -65,7 +65,7 @@ function checkNotifNb() {
 }
 
 function displayNotifNb() {
-    if (typeof document.getElementById('notifs-nb') === 'undefined') {
+    if (document.getElementById('notifs-nb') === null) {
         let div = document.createElement('div');
         div.id = 'notifs-nb';
         document.getElementsByClassName('notifs-container')[0].appendChild(div);
@@ -73,7 +73,10 @@ function displayNotifNb() {
 }
 
 function removeNotifNb() {
-    document.getElementById('notifs-nb').remove();
+    let element = document.getElementById('notifs-nb');
+    if (element !== null) {
+        element.remove();
+    }
 }
 
 function updateNotifNb(nb) {

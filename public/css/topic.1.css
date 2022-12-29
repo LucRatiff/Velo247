@@ -1,5 +1,5 @@
 @import 'forum.css';
-@import 'form.css';
+@import 'form.1.css';
 
 .message {
     display: flex;
@@ -103,7 +103,10 @@
 }
 
 .message-infos {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    column-gap: 10px;
     color: var(--blue-grey);
 }
 

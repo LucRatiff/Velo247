@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotificationController extends AbstractController
 {
-    #[Route('/notification', name: 'notification', methods: ['POST'])]
+    #[Route('/api/notification', name: 'notification', methods: ['POST'])]
     public function notifsHtml(): Response
     {
         /** @var User $user */
@@ -19,7 +19,7 @@ class NotificationController extends AbstractController
         return new Response(NotificationManager::getNotificationsAsHtml($user));
     }
     
-    #[Route('/notification_nb', name: 'notification_nb', methods: ['POST'])]
+    #[Route('/api/notification_nb', name: 'notification_nb', methods: ['POST'])]
     public function notifsNb(): Response
     {
         /** @var User $user */

@@ -15,7 +15,7 @@ input {
     box-sizing: border-box;
 }
 
-button[type="submit"] {
+button, input[type="submit"] {
     border: 2px solid rgba(0,0,0,0.2);
     border-radius: 6px;
     margin-bottom: 10px;
@@ -29,7 +29,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
+button:hover, input[type="submit"]:hover {
     background: var(--light-brown);
 }
 

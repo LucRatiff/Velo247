@@ -1,0 +1,69 @@
+.message-action {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.message-action:hover {
+    color: var(--main-blue);
+}
+
+#message-modify-modal, #delete-confirmation {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    border: 2px solid var(--main-blue);
+    padding: 10px;
+    background: #fff;
+}
+
+#message-modify-modal {
+    width: 80%;
+}
+
+#delete-confirmation {
+    width: 300px;
+}
+
+#message-modify-modal h6 {
+    margin: 0;
+    color: var(--brown);
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#form-modify-message {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+#form-modify-message textarea {
+    width: 100%;
+}
+
+#form-modify-message textarea:first-child {
+    min-height: 20px;
+}
+
+#delete-confirmation p {
+    margin: 10px 0;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center
+}
+
+#confirmation-buttons {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10px;
+}
+
+#button-yes {
+    background: var(--main-red);
+}
+
+#button-yes:hover {
+    background: var(--main-red-hover);
+}

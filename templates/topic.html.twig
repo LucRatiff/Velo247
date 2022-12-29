@@ -3,7 +3,10 @@
 {% block title %}{{ topic.title }} - {% endblock %}
 
 {% block style_addition %}
-    <link rel="stylesheet" href="{{ asset('css/topic.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/topic.1.css') }}">
+    {% if loggedin %}
+        <link rel="stylesheet" href="{{ asset('css/message-actions.css') }}">
+    {% endif %}
 {% endblock %}
 
 {% block navigation %}
@@ -18,7 +21,7 @@
     {% if topic.pinned %}
         <img src="{{ asset('images/pinned.png') }}">
     {% endif %}
-    <span>{{ topic.title }}</span>
+    <span id="topic-title">{{ topic.title }}</span>
 {% endblock %}
 
 {% block left_content %}
@@ -70,6 +73,10 @@
                         </div>
                     {% endif %}
                     <div class="message-infos">
+                        {% if loggedin and (is_mod or message.author_id == app.user.id) %}
+                            <span class="message-action message-modify">modifier</span>
+                            <span class="message-action message-delete">supprimer</span>
+                        {% endif %}
                         <span class="message-date">Le {{ message.date }}</span>
                         {% if message.last_edited is not null %}
                             <span class="message-last-edited">, {{ message.last_edited }}</span>
@@ -90,7 +97,7 @@
 {% block sidebar %}{% endblock %}
 
 {% block scripts %}
-    {% if is_mod %}
-        <script src="{{ asset('js/topic-mod-actions.js') }}"></script>
+    {% if loggedin %}
+        <script src="{{ asset('js/message-actions.js') }}"></script>
     {% endif %}
 {% endblock %}
