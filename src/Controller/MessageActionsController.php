@@ -49,7 +49,8 @@ class MessageActionsController extends AbstractController
             $subCategory = $topic->getSubCategory();
             $subCategory->setMessagesNb($subCategory->getMessagesNb() - 1);
             if ($topic->getLastMessage()->getId() == $message->getId()) {
-                $topic->setLastMessage(end($topic->getMessages()));
+                $messages = $topic->getMessages()->toArray();
+                $topic->setLastMessage($messages[count($messages) - 1]);
                 if ($subCategory->getLastMessage()->getId() == $message->getId()) {
                     $topics = $subCategory->getTopics();
                     $lastDate = 0;

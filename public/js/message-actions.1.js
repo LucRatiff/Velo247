@@ -32,7 +32,7 @@ function modifyMessage(nb) {
     }
     let textarea = document.createElement('textarea');
     textarea.name = 'content';
-    textarea.innerHTML = document.getElementsByClassName('content')[nb];
+    textarea.innerHTML = document.getElementsByClassName('content')[nb].innerHTML;
     let modifyConfirmationButtons = document.createElement('div');
     modifyConfirmationButtons.id = 'confirmation-buttons';
     let buttonNo = document.createElement('button');
@@ -102,7 +102,7 @@ function deleteMessage(nb) {
         removeModal('delete-confirmation');
     });
 
-    document.getElementById('delete-button-yes').addEventListener('click', () => {
+    document.getElementById('button-yes').addEventListener('click', () => {
         fetch(host + '/api/message/delete' + (nb == 0 ? '-topic/' : '/') + document.getElementsByClassName('message')[nb].id, {
             method: 'POST'
         }).then((response) => {
