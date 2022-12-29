@@ -5,7 +5,7 @@
         <group>
             <file>file:/home/axel/Projets/symfony/forum/templates/topic.html.twig</file>
             <file>file:/home/axel/Projets/symfony/forum/src/Controller/MessageActionsController.php</file>
-            <file>file:/home/axel/Projets/symfony/forum/public/js/message-actions.js</file>
+            <file>file:/home/axel/Projets/symfony/forum/public/js/message-actions.1.js</file>
             <file>file:/home/axel/Projets/symfony/forum/public/js/general.2.js</file>
         </group>
     </open-files>

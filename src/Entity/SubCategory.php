@@ -128,8 +128,8 @@ class SubCategory
     {
         if ($this->topics->removeElement($topic)) {
             // set the owning side to null (unless already changed)
-            if ($topic->getSubCategoryId() === $this) {
-                $topic->setSubCategoryId(null);
+            if ($topic->getSubCategory() === $this) {
+                $topic->setSubCategory(null);
             }
         }
 

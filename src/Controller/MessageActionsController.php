@@ -93,19 +93,22 @@ class MessageActionsController extends AbstractController
             $messages = $topic->getMessages();
             $messagesNb = count($messages);
             $manager = $registry->getManager();
-            $users = array();
+            $users = array(); // [User]
+            $usersNb = array(); // [nom, nb]
             $subCategory = $topic->getSubCategory();
             $subCategory->removeTopic($topic);
-            $replaceLastInSubCategory = $subCategory->getLastMessage()->getId() == end($messages)->getId();
+            $replaceLastInSubCategory = $subCategory->getLastMessage()->getId() == $messages[count($messages) - 1]->getId();
             $subCategory->setTopicsNb($subCategory->getTopicsNb() - 1);
             $subCategory->setMessagesNb($subCategory->getMessagesNb() - $messagesNb);
             
             foreach ($messages as $m) {
                 $user = $m->getUser();
-                if (!isset($users[$user])) {
-                    $users[$user] = 1;
+                $name = $user->getName();
+                if (isset($usersNb[$name])) {
+                    $usersNb[$name]++;
                 } else {
-                    $users[$user]++;
+                    $users[] = $user;
+                    $usersNb[$name] = 1;
                 }
                 $topic->removeMessage($m);
             }
@@ -127,8 +130,8 @@ class MessageActionsController extends AbstractController
                 $subCategory->setLastMessage($lastMessage);
             }
             
-            foreach ($users as $u => $nb) {
-                $u->setMessagesNb($u->getMessagesNb() - $nb);
+            foreach ($users as $u) {
+                $u->setMessagesNb($u->getMessagesNb() - $usersNb[$u->getName()]);
                 $manager->persist($u);
             }
             
