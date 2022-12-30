@@ -73,7 +73,9 @@
                     <div class="message-infos">
                         {% if loggedin and (is_mod or message.author_id == app.user.id) %}
                             <span class="message-action message-modify">modifier</span>
-                            <span class="message-action message-delete">supprimer</span>
+                            {% if i > 1 %}
+                                <span class="message-action message-delete">supprimer</span>
+                            {% endif %}
                         {% endif %}
                         <span class="message-date">Le {{ message.date }}</span>
                         {% if message.last_edited is not null %}
